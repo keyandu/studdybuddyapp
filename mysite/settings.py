@@ -37,7 +37,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
+AUTHENTICATION_BACKENDS = [
+    'allauth.account.auth_backends.AuthenticationBackend'
+    ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+            'redirect_uri': 'http://127.0.0.1:8000/google/login/callback/',
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = '/google/login/callback/'
+# LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,3 +154,6 @@ try:
         django_heroku.settings(locals())
 except ImportError:
     found = False
+
+GP_CLIENT_ID = '616212122044-lqoek91nn52bmocpmvjd0suq21qkol37.apps.googleusercontent.com'
+GP_CLIENT_SECRET = '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'
