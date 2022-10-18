@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+# import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'app',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
 SOCIALACCOUNT_LOGIN_ON_GET=True
 
 AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
     ]
 
@@ -56,14 +61,23 @@ SOCIALACCOUNT_PROVIDERS = {
             'email',
         ],
         'AUTH_PARAMS': {
-            'access_type': 'online',
-            'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/google/login/callback/',
+            'access_type': 'offline',
+            'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
         }
     }
 }
 
-LOGIN_REDIRECT_URL = '/google/login/callback/'
+# LOGIN_REDIRECT_URL = '/'
 # LOGOUT_REDIRECT_URL = '/'
+
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
+
+# Additional configuration settings
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,7 +94,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,6 +157,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -155,5 +170,15 @@ try:
 except ImportError:
     found = False
 
-GP_CLIENT_ID = '616212122044-lqoek91nn52bmocpmvjd0suq21qkol37.apps.googleusercontent.com'
-GP_CLIENT_SECRET = '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'
+MAX_CONN_AGE = 600
+#
+# if "DATABASE_URL" in os.environ:
+#     # Configure Django for DATABASE_URL environment variable.
+#     DATABASES["default"] = dj_database_url.config(
+#         conn_max_age=MAX_CONN_AGE, ssl_require=True)
+#
+#     # Enable test database if found in CI environment.
+#     if "CI" in os.environ:
+#         DATABASES["default"]["TEST"] = DATABASES["default"]
+# GP_CLIENT_ID = '616212122044-lqoek91nn52bmocpmvjd0suq21qkol37.apps.googleusercontent.com'
+# GP_CLIENT_SECRET = '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'
