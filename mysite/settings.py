@@ -70,7 +70,6 @@ SOCIALACCOUNT_PROVIDERS = {
 # LOGIN_REDIRECT_URL = '/'
 # LOGOUT_REDIRECT_URL = '/'
 
-SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 
 # Additional configuration settings
@@ -167,6 +166,9 @@ try:
     if 'HEROKU' in os.environ:
         import django_heroku
         django_heroku.settings(locals())
+        SITE_ID = 3
+    else:
+        SITE_ID = 2
 except ImportError:
     found = False
 
