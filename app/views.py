@@ -1,5 +1,8 @@
 from django.http import HttpResponse
-
+from http.client import responses
+from urllib import response
+from django.shortcuts import render
+import requests
 
 def index(request):
     return HttpResponse("Hello, world. You're at the app page.")
