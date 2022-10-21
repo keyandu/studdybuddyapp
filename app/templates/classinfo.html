@@ -1,6 +1,45 @@
-<head><strong>List of classes </strong> </head>
 <body>
         {% for i in response %}
+        <html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Course List</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Course Number</th>
+        <th>Course Section</th>
+        <th>Instructor</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in response %}
+      <tr>
+        <td>{{i.subject}} {{i.description}}</td>
+        <td>{{i.catalog_number}}</td>
+        <td>{{i.course_section}}</td>
+        <td>{{i.instructor.name}}</td>
+        <td><button type="button" class="btn btn-info">Add</button><td>
+      </tr>
+    {%endfor%}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
         {{i.catalog_number}}
+        {{i.description}}
         {%endfor%}
 </body>
