@@ -5,17 +5,20 @@ from django.shortcuts import render
 # from .models import UserClass
 import requests
 from django.http import HttpResponseRedirect
+from django.views import generic
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the app page.")
 
+
 def get_class(request):
     url = "http://luthers-list.herokuapp.com/api/dept/CS/"
     response = requests.get(url).json()
-    return render(request,'classinfo.html',{'response':response})
+    return render(request, 'classinfo.html', {'response': response})
 
 # def submit(request):
-#     decsription_text = request.POST.get('Class Name')
+#     description_text = request.POST.get('Class Name')
 #     course_number_text = request.POST.get('Course Number')
 #     instructor_text = request.POST.get('Instructor')
 #     thought = UserClass(description_field=decsription_text, course_number_field=course_number_text, instructor_field=instructor_text)
