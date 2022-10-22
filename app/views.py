@@ -6,7 +6,12 @@ from django.shortcuts import render
 import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 
+
+
+def profile(request):
+    return render(request, 'profile.html')
 
 def index(request):
     return HttpResponse("Hello, world. You're at the app page.")
@@ -16,6 +21,9 @@ def get_class(request):
     url = "http://luthers-list.herokuapp.com/api/dept/CS/"
     response = requests.get(url).json()
     return render(request, 'classinfo.html', {'response': response})
+
+
+#https://dev.to/earthcomfy/django-user-profile-3hik
 
 # def submit(request):
 #     description_text = request.POST.get('Class Name')
