@@ -47,11 +47,19 @@
 <!--<h1>My Google OAuth Project </h1>-->
 {% if user.is_authenticated %}
   <p>Welcome, You are logged in as {{ user.username }}</p>
+  {% block title %}Profile Page{% endblock title %}
+{% block content %}
+    <div class="row my-3 p-3">
+        <h1>This is the profile page for {{user.username}}</h1>
+    </div>
+
+{% endblock content %}
 {% else %}
 <button>
   <a href="{% provider_login_url 'google' %}">Login</a>
 </button>
 {% endif %}
+
 
 </body>
 </html>
