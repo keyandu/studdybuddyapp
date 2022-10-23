@@ -46,12 +46,40 @@
 <div class="text-center">
 <!--<h1>My Google OAuth Project </h1>-->
 {% if user.is_authenticated %}
-  <p>Welcome, You are logged in as {{ user.username }}</p>
-  {% block title %}Profile Page{% endblock title %}
+ <button>
+  <a class="nav-link" href="/admin/app/profile/" >Edit Account Information</a>
+</button>
 {% block content %}
-    <div class="row my-3 p-3">
-        <h1>This is the profile page for {{user.username}}</h1>
+<!--https://www.bootdey.com/snippets/view/Profile-bio#html-->
+     <div class="container bootstrap snippets bootdey"> 
+    <div class="profile card">
+        <div class="profile-body">
+            <div class="profile-bio">
+                <div class="row">
+                    <div class="col-md-5 text-center">
+                        <img class="img-thumbnail md-margin-bottom-10" src="https://www.americanaircraftsales.com/wp-content/uploads/2016/09/no-profile-img.jpg" alt="">
+                    </div>
+                    <div class="col-md-7">
+                        <h2>{{user.username}}</h2>
+                        <span><strong>Age:</strong> {{user.profile.Age}}</span>
+                        <br></br>
+                        <span><strong>Major:</strong> {{user.profile.Major}}</span>
+                        <br></br>
+                        <span><strong>Courses:</strong> {{user.profile.Enrolled_Courses}}</span>
+                        <br></br>
+                        <p>{{user.profile.Bio}}</p>
+                    
+                    </div>
+                </div>    
+            </div>
+      </div>
     </div>
+</div> 
+
+
+              
+        
+
 
 {% endblock content %}
 {% else %}
@@ -65,7 +93,7 @@
 </html>
 </div>
 
-<body style="color: white">
+<body style="color: black;">
 <link rel="stylesheet" href="{% static 'index/style.css' %}">
 <hr>
 </body>

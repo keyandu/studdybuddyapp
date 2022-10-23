@@ -7,10 +7,14 @@ import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from app.models import Profile
 
 
 
+
+@login_required
 def profile(request):
+
     return render(request, 'profile.html')
 
 def index(request):
