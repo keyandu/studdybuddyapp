@@ -62,7 +62,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'offline',
-            'redirect_uri': 'https://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
+            'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
         }
     }
 }
