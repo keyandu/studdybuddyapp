@@ -24,7 +24,8 @@ class EditProfilePageView(generic.UpdateView):
 class profile(DetailView):
     model= Profile
     template_name ='profile.html'
-
+    def get_object(self):
+        return self.request.user
 
 
 def index(request):
