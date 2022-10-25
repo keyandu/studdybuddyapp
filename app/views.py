@@ -8,14 +8,24 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from app.models import Profile
+from django.views.generic import DetailView
+
+from django.contrib.auth.models import User
+
+class EditProfilePageView(generic.UpdateView):
+    model = Profile
+    template_name = 'editProfile.html'
+    fields = ['Age','Enrolled_Courses','Major','Bio']
+    success_url = '<int:pk>/profile/'
+
+    def get_object(self):
+        return self.request.user
+
+class profile(DetailView):
+    model= Profile
+    template_name ='profile.html'
 
 
-
-
-@login_required
-def profile(request):
-
-    return render(request, 'profile.html')
 
 def index(request):
     return HttpResponse("Hello, world. You're at the app page.")
