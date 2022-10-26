@@ -14,17 +14,7 @@ from app.models import Profile
 
 
 @login_required
-def filter_pred_factory(**kwargs):
 
-    def predicate(item):
-        for key, value in kwargs.items():
-
-            if key not in item or item[key] != value:
-                return False
-
-        return True
-
-    return predicate
 def profile(request):
 
     return render(request, 'profile.html')
