@@ -9,20 +9,10 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from app.models import Profile
-from django.views.generic import DetailView
 
-from django.contrib.auth.models import User
 
-class EditProfilePageView(generic.UpdateView):
-    model = Profile
-    template_name = 'editProfile.html'
-    fields = ['Age','Enrolled_Courses','Major','Bio']
-    success_url = '<int:pk>/profile/'
 
-    def get_object(self):
-        return self.request.user
 
-<<<<<<< HEAD
 @login_required
 def filter_pred_factory(**kwargs):
 
@@ -36,14 +26,8 @@ def filter_pred_factory(**kwargs):
 
     return predicate
 def profile(request):
-=======
-class profile(DetailView):
-    model= Profile
-    template_name ='profile.html'
-    def get_object(self):
-        return self.request.user
->>>>>>> 5902a357aa2c266e2e7266126dcd482282ebfe74
 
+    return render(request, 'profile.html')
 
 def index(request):
     return HttpResponse("Hello, world. You're at the app page.")
