@@ -29,7 +29,7 @@
           <a class="nav-link" href="#">Find a Buddy</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/profile" >Profile</a>
+          <a class="nav-link" href="/1/profile" >Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/class" >Course List</a>
@@ -47,11 +47,11 @@
 <!--<h1>My Google OAuth Project </h1>-->
 {% if user.is_authenticated %}
  <button>
-  <a class="nav-link" href="/admin/app/profile/" >Edit Account Information</a>
+  <a class="nav-link" href="{% url 'edit_profile_page' user.profile.id%}" >Edit Account Information</a>
 </button>
 {% block content %}
 <!--https://www.bootdey.com/snippets/view/Profile-bio#html-->
-     <div class="container bootstrap snippets bootdey"> 
+     <div class="container bootstrap snippets bootdey">
     <div class="profile card">
         <div class="profile-body">
             <div class="profile-bio">
@@ -68,17 +68,17 @@
                         <span><strong>Courses:</strong> {{user.profile.Enrolled_Courses}}</span>
                         <br></br>
                         <p>{{user.profile.Bio}}</p>
-                    
+
                     </div>
-                </div>    
+                </div>
             </div>
       </div>
     </div>
-</div> 
+</div>
 
 
-              
-        
+
+
 
 
 {% endblock content %}
