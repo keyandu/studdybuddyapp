@@ -9,6 +9,6 @@ urlpatterns = [
     path("", include("allauth.urls")),
     path('class/', views.get_class,name = "get_class"),
     path('search/', views.get_search,name = "search"),
-    path('profile/', views.profile, name='user_profile'),
+    
     
 ]

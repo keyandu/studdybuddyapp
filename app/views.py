@@ -9,15 +9,39 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from app.models import Profile
+from .forms import EditProfileForm
+from django.views.generic import DetailView
+from django.urls import reverse
+
+def edit_profile(request, pk):
+    # check if the user has a profile
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist: 
+        # if user has no profile, create one
+        profile = Profile(user=request.user)
+    
+    if request.method == 'POST':
+        # set form instance to be the current user's profile
+        form = EditProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return HttpResponseRedirect(reverse('user_profile', args=(pk,)))    
+    else:
+        form = EditProfileForm(instance=profile)
+
+    return render(request, 'editProfile.html', {'form': form})
 
 
 
+class profile(DetailView):
+    model= Profile
+    template_name ='profile.html'
+    def get_object(self):
+        return self.request.user
 
-@login_required
-
-def profile(request):
-
-    return render(request, 'profile.html')
 
 def index(request):
     return HttpResponse("Hello, world. You're at the app page.")
