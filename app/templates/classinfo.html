@@ -58,7 +58,11 @@
 <div class="container">
   <h2>Course List</h2>
 
-  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <form action="{% url 'search' %}" method="POST">
+      {% csrf_token %}
+      <input type="text" name="name">
+      <input type="submit" name="submit" value="Search">
+  </form>
 <!--  <br>-->
 <!--  <ul class="list-group" id="myList">-->
 <!--    <li class="list-group-item">{{i.subject}} {{i.catalog_number}}</li>-->

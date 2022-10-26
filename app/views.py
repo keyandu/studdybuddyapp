@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.http import HttpResponse
 from http.client import responses
 from urllib import response
@@ -13,6 +14,17 @@ from app.models import Profile
 
 
 @login_required
+def filter_pred_factory(**kwargs):
+
+    def predicate(item):
+        for key, value in kwargs.items():
+
+            if key not in item or item[key] != value:
+                return False
+
+        return True
+
+    return predicate
 def profile(request):
 
     return render(request, 'profile.html')
@@ -25,6 +37,15 @@ def get_class(request):
     url = "http://luthers-list.herokuapp.com/api/dept/CS/"
     response = requests.get(url).json()
     return render(request, 'classinfo.html', {'response': response})
+
+def get_search(request):
+    if request.method == "POST":
+        query_name = request.POST.get('name')
+        response = requests.get("http://luthers-list.herokuapp.com/api/dept/CS/").json()
+        result = list(filter(lambda x: x['description']==query_name, response))
+        return render(request, 'search.html', {"result":result})
+    return render(request, 'search.html',{"result":{"n"}})
+    
 
 
 #https://dev.to/earthcomfy/django-user-profile-3hik
