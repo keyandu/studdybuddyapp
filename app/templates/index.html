@@ -25,13 +25,6 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         <li class="nav-item">
-          {% if user.is_authenticated and user.profile.id %}
-          <a class="nav-link" href="/">Find a Buddy</a>
-            {% else %}
-
-            {% endif %}
-        </li>
-        <li class="nav-item">
             {% if user.is_authenticated and user.profile.id %}
             <a class="nav-link" href="/finder">Find a Buddy</a>
             {% else %}
@@ -51,7 +44,7 @@
         </li>
         <li class="nav-item">
           {% if user.is_authenticated %}
-          <a class="nav-link" href="/class">Edit Profile</a>
+          <a class="nav-link" href="{% url 'edit_profile_page' user.profile.id%}">Edit Profile</a>
             {% else %}
 
             {% endif %}
