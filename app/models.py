@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserChangeForm
 
 #
 # # Create your models here.
-class UserClass(models.Model):
+class Class(models.Model):
     description_field = models.CharField(max_length=50, default="description")
     course_number_field = models.CharField(max_length=10, default="course number")
     instructor_field = models.CharField(max_length=50, default="instructor")
@@ -54,4 +54,7 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-
+class UserCourse(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    course = models.ForeignKey(Class, on_delete=models.CASCADE)
+    #user_course = UserCourse.objects.filter(user=login_user)

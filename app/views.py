@@ -32,7 +32,7 @@ def get_search(request):
     if request.method == "POST":
         query_name = request.POST.get('name')
         response = requests.get("http://luthers-list.herokuapp.com/api/dept/CS/").json()
-        result = list(filter(lambda x: x['description']==query_name, response))
+        result = list(filter(lambda x: (x['description'].upper().__contains__(query_name.upper()) or (x['subject']+" "+x['catalog_number']).upper().__contains__(query_name.upper()) or x['instructor']['name'].upper().__contains__(query_name.upper())), response))
         return render(request, 'search.html', {"result":result})
     return render(request, 'search.html',{"result":{"n"}})
     
