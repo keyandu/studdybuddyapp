@@ -61,20 +61,6 @@ ACCOUNT_FORMS = {'signup': 'app.forms.SignupProfileForm'}
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'offline',
-            # 'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
-            'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
-        }
-    }
-}
-
 # LOGIN_REDIRECT_URL = '/'
 # LOGOUT_REDIRECT_URL = '/'
 
@@ -172,6 +158,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SOCIALACCOUNT_PROVIDERS = {
+            'google': {
+                'SCOPE': [
+                    'profile',
+                    'email',
+                ],
+                'AUTH_PARAMS': {
+                    'access_type': 'offline',
+                    'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
+                    #'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
+                }
+            }
+        }
 
 try:
     if 'HEROKU' in os.environ:
