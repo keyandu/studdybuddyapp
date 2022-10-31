@@ -54,6 +54,13 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend'
     ]
 
+# ACCOUNT_SIGNUP_FORM_CLASS = 'app.forms.EditProfileForm'
+
+ACCOUNT_FORMS = {'signup': 'app.forms.SignupProfileForm'}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -62,8 +69,8 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'offline',
-            'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
-            #'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
+            # 'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
+            'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
         }
     }
 }
