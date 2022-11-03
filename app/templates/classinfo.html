@@ -24,23 +24,22 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
         <li class="nav-item">
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated and user.profile.id %}
           <a class="nav-link" href="/">Find a Buddy</a>
             {% else %}
 
             {% endif %}
         </li>
         <li class="nav-item">
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated and user.profile.id %}
           <a class="nav-link" href="{% url 'user_profile' user.profile.id %}">Profile</a>
             {% else %}
 
             {% endif %}
         </li>
         <li class="nav-item">
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated and user.profile.id %}
           <a class="nav-link" href="/class">Class</a>
             {% else %}
 
