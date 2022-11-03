@@ -60,6 +60,7 @@ def get_search(request):
         return render(request, 'search.html', {"result": result})
     return render(request, 'search.html', {"result": {"n"}})
 
+# this is a view that basically creates a lost of the added class that includes class subject, class number, and slass section
 def classAdded(request):
     info = request.POST['selectedClass'].split("-")
     UserInfo.objects.create(user=request.user, class_subject=info[0], class_number=info[1], class_section=info[2])

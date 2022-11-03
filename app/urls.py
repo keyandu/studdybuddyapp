@@ -10,6 +10,7 @@ urlpatterns = [
     path('class/', views.get_class,name = "get_class"),
     path('search/', views.get_search,name = "search"),
     path('finder/', TemplateView.as_view(template_name="findBuddy"), name="finder"),
+    # add class path
     path('class/classAdded', views.classAdded,name = "classAdded"),
 
 
