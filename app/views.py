@@ -56,12 +56,15 @@ def get_search(request):
     if request.method == "POST":
         query_name = request.POST.get('name')
         response = requests.get("http://luthers-list.herokuapp.com/api/dept/CS/").json()
-        result = list(filter(lambda x: x['description']==query_name, response))
-        return render(request, 'search.html', {"result":result})
-    return render(request, 'search.html',{"result":{"n"}})
-    
+        result = list(filter(lambda x: x['description'] == query_name, response))
+        return render(request, 'search.html', {"result": result})
+    return render(request, 'search.html', {"result": {"n"}})
 
+def classAdded(request):
+    info = request.POST['selectedClass'].split("-")
+    UserInfo.objects.create(user=request.user, class_subject=info[0], class_number=info[1], class_section=info[2])
 
+    return render(request, 'classAdded.html')
 #https://dev.to/earthcomfy/django-user-profile-3hik
 
 # def submit(request):
