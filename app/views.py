@@ -35,6 +35,10 @@ def edit_profile(request, pk):
     return render(request, 'editProfile.html', {'form': form})
 
 
+def friendslist(request):
+    profile = Profile.objects.get(user=request.user)
+    context = {'profile': profile}
+    return render(request, 'friendsList.html', context)
 
 class profile(DetailView):
     model= Profile
