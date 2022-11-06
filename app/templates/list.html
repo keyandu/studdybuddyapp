@@ -1,0 +1,9 @@
+{% if formset %}
+<ul>
+    {% for form in formset %}
+    <li>{{ form.title.value }} {{form.text.value}} {{form.start_time.value}} {{form.author}}</li>
+    {% endfor %}
+</ul>
+    {% else %}
+<p>No polls are available.</p>
+    {% endif %}
