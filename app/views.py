@@ -1,4 +1,7 @@
 
+from dataclasses import field
+from re import S
+from tkinter.tix import Form
 from django.http import HttpResponse
 from http.client import responses
 from urllib import response
@@ -8,8 +11,9 @@ import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from app.models import Profile
-from .forms import EditProfileForm
+from .models import Profile, UserCourse, StudySessionModel
+from .forms import EditProfileForm, StudySessionForm
+from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
 
@@ -59,7 +63,25 @@ def get_search(request):
         result = list(filter(lambda x: (x['description'].upper().__contains__(query_name.upper()) or (x['subject']+" "+x['catalog_number']).upper().__contains__(query_name.upper()) or x['instructor']['name'].upper().__contains__(query_name.upper())), response))
         return render(request, 'search.html', {"result":result})
     return render(request, 'search.html',{"result":{"n"}})
-    
+
+def post_study_session(request):
+    if request.method == 'POST':
+        formset = StudySessionForm(request.POST)
+        if formset.is_valid():
+            #starttime = formset.cleaned_data['start_time']
+           # newformset = StudySessionModel(start_time = starttime)
+            formset.save()
+    else:
+        formset = StudySessionForm()
+    return render(request, 'study_session_post.html',{'formset':formset})
+
+def list(request):
+    studyForm = modelformset_factory(StudySessionModel, fields=('title','text','start_time','author',))
+    formset = studyForm(queryset = StudySessionModel.objects.all())
+    return render(request, 'list.html',{'formset':formset})
+#def add_class(request):
+ #   class_json = request.POST["class_id"]
+  ## return class_json
 
 
 #https://dev.to/earthcomfy/django-user-profile-3hik

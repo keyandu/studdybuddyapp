@@ -126,7 +126,12 @@ $(document).ready(function(){
         <td>{{i.description}}</td>
         <td>{{i.course_section}}</td>
         <td>{{i.instructor.name}}</td>
-        <td><button type="button" class="btn btn-info">Add</button><td>
+        <td>
+            <form action=" = {%url 'class_add'}" method="POST">
+                {% csrf_token%}
+                <button type="submit",name="class_id",value=i, class="btn btn-info">Add</button>
+            </form> 
+        <td>
       </tr>
     {%endfor%}
     </tbody>

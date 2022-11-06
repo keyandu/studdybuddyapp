@@ -12,7 +12,7 @@ class Class(models.Model):
     course_number_field = models.CharField(max_length=10, default="course number")
     instructor_field = models.CharField(max_length=50, default="instructor")
     def __str__(self):
-        return self.description_field
+        return self.description_field, self.course_number_field, self.instructor_field
 
 
 class Profile(models.Model):
@@ -70,3 +70,13 @@ class UserCourse(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     course = models.ForeignKey(Class, on_delete=models.CASCADE)
     #user_course = UserCourse.objects.filter(user=login_user)
+
+class StudySessionModel (models.Model):
+    title = models.CharField(max_length = 200)
+    text = models.CharField(max_length = 500)
+    start_time = models.DateTimeField()
+    duration = models.CharField(max_length = 10)
+    address = models.CharField(max_length=200)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.title+ ' | ' + str(self.author)
