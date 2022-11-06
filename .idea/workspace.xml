@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6443885b-7bc6-4302-ad81-11e41cf15fdf" name="Changes" comment="add-profiles-on-signup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/classinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/classinfo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/editProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/editProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/findBuddy.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/findBuddy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/search.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
     </list>

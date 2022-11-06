@@ -23,17 +23,43 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/finder">Find a Buddy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/1/profile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/class">Course List</a>
-                </li>
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          {% if user.is_authenticated %}
+          <a class="nav-link" href="/">Find a Buddy</a>
+            {% else %}
+
+            {% endif %}
+        </li>
+        <li class="nav-item">
+          {% if user.is_authenticated %}
+          <a class="nav-link" href="{% url 'user_profile' user.profile.id %}">Profile</a>
+            {% else %}
+
+            {% endif %}
+        </li>
+        <li class="nav-item">
+          {% if user.is_authenticated %}
+          <a class="nav-link" href="/class">Course List</a>
+            {% else %}
+
+            {% endif %}
+        </li>
+      <li class="nav-item">
+                {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'post'%}">Post a Study Session</a>
+                {% else %}
+
+                {% endif %}
+            </li>
+      <li class="nav-item">
+          {% if user.is_authenticated %}
+          <a class="nav-link" href="/friends">Friends</a>
+            {% else %}
+
+            {% endif %}
+        </li>
             </ul>
             <!--      <form class="d-flex">-->
             <!--        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
