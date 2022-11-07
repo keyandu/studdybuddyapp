@@ -84,7 +84,7 @@ def post_study_session(request):
         formset = StudySessionForm()
     return render(request, 'study_session_post.html',{'formset':formset})
 
-def list(request):
+def post_list(request):
     studyForm = modelformset_factory(StudySessionModel, fields=('title','text','start_time','author',))
     formset = studyForm(queryset = StudySessionModel.objects.all())
     return render(request, 'list.html',{'formset':formset})
