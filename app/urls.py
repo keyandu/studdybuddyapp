@@ -11,5 +11,5 @@ urlpatterns = [
     path('class/', views.get_class,name = "get_class"),
     path('search/', views.get_search,name = "search"),
     path('study_session_post', views.post_study_session,name = "post"),
-   # path('list/', views.list,name = "list"),
+    path('list/', views.post_list,name = "list"),
 ]
