@@ -1,11 +1,12 @@
 
-from dataclasses import field
-from re import S
-from tkinter.tix import Form
+from re import template
+from django.contrib.auth.models import User
+from django.urls import resolve
 from django.http import HttpResponse
 from http.client import responses
 from urllib import response
 from django.shortcuts import render
+from django.views.generic import DetailView, CreateView
 # from .models import UserClass
 import requests
 from django.http import HttpResponseRedirect
@@ -16,7 +17,7 @@ from .forms import EditProfileForm, StudySessionForm
 from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
-
+from django.shortcuts import get_object_or_404
 def edit_profile(request, pk):
     # check if the user has a profile
     try:
@@ -44,11 +45,18 @@ def friendslist(request):
     context = {'profile': profile}
     return render(request, 'friendsList.html', context)
 
-class profile(DetailView):
-    model= Profile
-    template_name ='profile.html'
-    def get_object(self):
-        return self.request.user
+
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = Profile.objects.get(user=user)
+    url_name = resolve(request.path).url_name
+
+    context = {
+        'profile': profile,
+        'url_name': url_name,
+    }
+
+    return render(request, 'profile.html', context)
 
 
 def index(request):
@@ -68,22 +76,17 @@ def get_search(request):
         return render(request, 'search.html', {"result":result})
     return render(request, 'search.html',{"result":{"n"}})
 
-def post_study_session(request):
-    if request.method == 'POST':
-        formset = StudySessionForm(request.POST)
-        if formset.is_valid():
-            #starttime = formset.cleaned_data['start_time']
-           # newformset = StudySessionModel(start_time = starttime)
-            formset.save()
-    else:
-        formset = StudySessionForm()
-    return render(request, 'study_session_post.html',{'formset':formset})
-
+class AddSessionView(CreateView):
+    model = StudySessionModel
+    template_name = 'study_session_post.html'
+    fields = '__all__'
 def post_list(request):
-    studyForm = modelformset_factory(StudySessionModel, fields=('title','text','start_time','author',))
-    formsets = studyForm(queryset = StudySessionModel.objects.all())
-    return render(request, 'list.html',{'formset':formsets})
+    formset = StudySessionModel.objects.all()
+    return render(request, 'list.html',{'formset':formset})
 
+class StudySessionDetailView(DetailView):
+    model = StudySessionModel
+    template_name = 'session_details.html'
 
 #https://dev.to/earthcomfy/django-user-profile-3hik
 

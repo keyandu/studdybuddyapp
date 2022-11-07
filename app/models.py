@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.forms import UserChangeForm
-
+from django.urls import reverse
 
 #
 # # Create your models here.
@@ -20,36 +20,11 @@ class Class(models.Model):
 
 class Profile(models.Model):
     Ages = (
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5'),
-        ('6', '6'),
-        ('7', '7'),
-        ('8', '8'),
-        ('9', '9'),
-        ('10', '10'),
-        ('11', '11'),
-        ('12', '12'),
-        ('13', '13'),
-        ('14', '14'),
-        ('15', '15'),
-        ('16', '16'),
-        ('17', '17'),
-        ('18', '18'),
-        ('19', '19'),
-        ('20', '20'),
-        ('21', '21'),
-        ('22', '22'),
-        ('23', '23'),
-        ('24', '24'),
-        ('25', '25'),
-        ('26', '26'),
-        ('27', '27'),
-        ('28', '28'),
-        ('29', '29'),
-        ('30', '30'),
+
+        ('First Year', 'First Year'),
+        ('Second Year', 'Second Year'),
+        ('Third Year', 'Third Year'),
+        ('Fourth Year', 'Fourth Year'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -97,13 +72,15 @@ class Relationship(models.Model):
 
 class StudySessionModel (models.Model):
     title = models.CharField(max_length = 200)
-    text = models.CharField(max_length = 500)
+    text = models.TextField()
     start_time = models.DateTimeField()
     duration = models.CharField(max_length = 10)
     address = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.title+ ' | ' + str(self.author)
+    def get_absolute_url(self):
+        return reverse('list')
 
 
 
