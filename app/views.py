@@ -1,4 +1,5 @@
-
+from django.contrib.auth.models import User
+from django.urls import resolve
 from django.http import HttpResponse
 from http.client import responses
 from urllib import response
@@ -13,7 +14,7 @@ from .forms import EditProfileForm, StudySessionForm
 from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
-
+from django.shortcuts import get_object_or_404
 def edit_profile(request, pk):
     # check if the user has a profile
     try:
@@ -41,11 +42,18 @@ def friendslist(request):
     context = {'profile': profile}
     return render(request, 'friendsList.html', context)
 
-class profile(DetailView):
-    model= Profile
-    template_name ='profile.html'
-    def get_object(self):
-        return self.request.user
+
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = Profile.objects.get(user=user)
+    url_name = resolve(request.path).url_name
+
+    context = {
+        'profile': profile,
+        'url_name': url_name,
+    }
+
+    return render(request, 'profile.html', context)
 
 
 def index(request):

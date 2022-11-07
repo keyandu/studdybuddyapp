@@ -73,7 +73,7 @@
 <!--<h1>My Google OAuth Project </h1>-->
 {% if user.is_authenticated %}
  <button>
-  <a class="nav-link" href="{% url 'user_profile' user.profile.id%}" >Return To Profile</a>
+  <a class="nav-link" href="{% url 'user_profile' user.profile%}" >Return To Profile</a>
 </button>
 {% block content %}
 <!--https://www.bootdey.com/snippets/view/Profile-bio#html-->
