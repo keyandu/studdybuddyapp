@@ -8,22 +8,18 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-<!--<body>-->
-<!--    &lt;!&ndash; Bootstrap JS Bundle with Popper &ndash;&gt;-->
-<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
-<!--</body>-->
 </html>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Study Buddy</a>
+    <a class="navbar-brand" href="/">Study Buddy</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
           {% if user.is_authenticated %}
@@ -60,33 +56,66 @@
 
             {% endif %}
         </li>
+
         </ul>
-<!--      <form class="d-flex">-->
-<!--        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--        <button class="btn btn-outline-success" type="submit">Search</button>-->
-<!--      </form>-->
+          {% if user.is_authenticated %}
+          <a class="nav-item nav-link" href="{% url 'account_logout' %}">Logout</a>
+            {% else %}
+          <a class="nav-item nav-link" href="{% provider_login_url 'google' %}">Login</a>
+            {% endif %}
     </div>
   </div>
 </nav>
-<br>
-<div class="text-center">
-<!--<h1>My Google OAuth Project </h1>-->
-{% if user.is_authenticated %}
-  <p>Welcome, You are logged in as {{ user.username }}</p>
-{% else %}
-<button>
-  <a href="{% provider_login_url 'google' %}">Login</a>
-</button>
-{% endif %}
+<!--<div class="text-center">-->
+<!--&lt;!&ndash;<h1>My Google OAuth Project </h1>&ndash;&gt;-->
+<!--{% if user.is_authenticated %}-->
+<!--  <p>Welcome, You are logged in as {{ user.username }}</p>-->
+<!--{% else %}-->
+<!--    <p>Welcome to </p>-->
+<!--&lt;!&ndash;<button>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="{% provider_login_url 'google' %}">Login</a>&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--{% endif %}-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->
+<!--</div>-->
+
+<!--<body style="color: white">-->
+<div class="p-5 text-center bg-image" style="background-image: url({% static 'index/images/monkey.jpg' %}">
+<div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-white">
+          <h1 class="mb-3">Welcome to StudyBuddy, {{ user.username }}</h1>
+          <h5 class="mb-4">The #1 Resource to Find New Study Sessions</h5>
+            {% if user.is_authenticated %}
+              <a
+                class="btn btn-outline-light btn-lg m-2"
+                href="{% url 'user_profile' user.profile %}"
+                role="button"
+              >Profile</a
+              >
+            {% endif %}
+            {% if user.is_authenticated %}
+              <a
+                class="btn btn-outline-light btn-lg m-2"
+                href="/"
+                role="button"
+              >Find a Buddy</a
+              >
+            {% else %}
+                <a
+                class="btn btn-outline-light btn-lg m-2"
+                href="{% provider_login_url 'google' %}"
+                role="button"
+                target="_blank"
+              >Login</a
+              >
+            {% endif %}
+<!--        </div>-->
+      </div>
+    </div>
 </div>
-
-<body style="color: white">
-<link rel="stylesheet" href="{% static 'index/style.css' %}">
-<hr>
-</body>
 
 <html>
 <nav class="navbar fixed-bottom navbar-dark bg-dark">
