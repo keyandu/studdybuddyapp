@@ -4,29 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6443885b-7bc6-4302-ad81-11e41cf15fdf" name="Changes" comment="add-profiles-on-signup">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/classinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/classinfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/editProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/editProfile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/findBuddy.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/findBuddy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
-    </list>
+    <list default="true" id="6443885b-7bc6-4302-ad81-11e41cf15fdf" name="Changes" comment="login-debug" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-        <option value="HTML File" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,12 +23,10 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
   <component name="RunManager">
     <configuration name="project-b-09" type="Python.DjangoServer" factoryName="Django server">
       <module name="project-b-09" />
@@ -54,7 +34,6 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="mysite.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -83,24 +62,29 @@
       <updated>1666670701611</updated>
       <workItem from="1666670703510" duration="7726000" />
       <workItem from="1666736002240" duration="1828000" />
-      <workItem from="1667687691728" duration="7020000" />
-      <workItem from="1667751493341" duration="7616000" />
     </task>
-    <task id="LOCAL-00001" summary="add-profiles-on-signup">
-      <created>1667249987776</created>
+    <task id="LOCAL-00001" summary="add class updates">
+      <created>1667442644186</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1667249987776</updated>
+      <updated>1667442644186</updated>
     </task>
-    <task id="LOCAL-00002" summary="add-profiles-on-signup">
-      <created>1667250130621</created>
+    <task id="LOCAL-00002" summary="add class updates">
+      <created>1667443592032</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1667250130621</updated>
+      <updated>1667443592032</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add-profiles-on-signup">
+      <created>1667514721504</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667514721504</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,18 +102,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="add class updates" />
     <MESSAGE value="add-profiles-on-signup" />
     <option name="LAST_COMMIT_MESSAGE" value="add-profiles-on-signup" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/models.py</url>
-          <line>50</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
