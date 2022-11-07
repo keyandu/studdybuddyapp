@@ -82,7 +82,7 @@
             <form action="{% url 'post' %}" method="POST">
                 {% csrf_token %}
                 {{formset.as_p}}
-                <button type="submit" name="submit" class="btn btn-primary">Post</button>
+                <button type="submit" name="post" class="btn btn-primary">Post</button>
 
             </form>
         </div>
