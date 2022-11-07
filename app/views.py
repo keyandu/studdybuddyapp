@@ -11,7 +11,7 @@ import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .models import Profile, UserCourse, StudySessionModel
+from .models import Profile, StudySessionModel
 from .forms import EditProfileForm, StudySessionForm
 from django.forms import modelformset_factory
 from django.views.generic import DetailView
@@ -79,10 +79,12 @@ def post_study_session(request):
         formset = StudySessionForm()
     return render(request, 'study_session_post.html',{'formset':formset})
 
-def list(request):
-    studyForm = modelformset_factory(StudySessionModel, fields=('title','text','start_time','author',))
-    formset = studyForm(queryset = StudySessionModel.objects.all())
-    return render(request, 'list.html',{'formset':formset})
+#def list(request):
+    #studyForm = modelformset_factory(StudySessionModel, fields=('title','text','start_time','author',))
+    #formsets = studyForm(queryset = StudySessionModel.objects.all())
+    #return render(request, 'list.html',{'formset':formsets})
+#    pass
+#    pass
 #def add_class(request):
  #   class_json = request.POST["class_id"]
   ## return class_json

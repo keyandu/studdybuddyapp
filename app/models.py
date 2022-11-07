@@ -90,9 +90,9 @@ class Relationship(models.Model):
     def __str__(self):
         return f"{self.sender}-{self.receiver}-{self.status}"
 
-class UserCourse(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    course = models.ForeignKey(Class, on_delete=models.CASCADE)
+#class UserCourse(models.Model):
+#    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+#    course = models.ForeignKey(Class, on_delete=models.CASCADE)
     #user_course = UserCourse.objects.filter(user=login_user)
 
 class StudySessionModel (models.Model):
