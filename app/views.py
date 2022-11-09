@@ -1,18 +1,23 @@
 
+from re import template
+from django.contrib.auth.models import User
+from django.urls import resolve
 from django.http import HttpResponse
 from http.client import responses
 from urllib import response
 from django.shortcuts import render
+from django.views.generic import DetailView, CreateView
 # from .models import UserClass
 import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from app.models import Profile
-from .forms import EditProfileForm
+from .models import Profile, StudySessionModel
+from .forms import EditProfileForm, StudySessionForm
+from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
-
+from django.shortcuts import get_object_or_404
 def edit_profile(request, pk):
     # check if the user has a profile
     try:
@@ -34,6 +39,11 @@ def edit_profile(request, pk):
 
     return render(request, 'editProfile.html', {'form': form})
 
+
+def friendslist(request):
+    profile = Profile.objects.get(user=request.user)
+    context = {'profile': profile}
+    return render(request, 'friendsList.html', context)
 
 
 class profile(DetailView):
@@ -57,15 +67,21 @@ def get_search(request):
         query_name = request.POST.get('name')
         response = requests.get("http://luthers-list.herokuapp.com/api/dept/CS/").json()
         result = list(filter(lambda x: (x['description'].upper().__contains__(query_name.upper()) or (x['subject']+" "+x['catalog_number']).upper().__contains__(query_name.upper()) or x['instructor']['name'].upper().__contains__(query_name.upper())), response))
-        return render(request, 'search.html', {"result": result})
-    return render(request, 'search.html', {"result": {"n"}})
+        return render(request, 'search.html', {"result":result})
+    return render(request, 'search.html',{"result":{"n"}})
 
-# this is a view that basically creates a lost of the added class that includes class subject, class number, and slass section
-#def classAdded(request):
-#    info = request.POST['selectedClass'].split("-")
-#    UserInfo.objects.create(user=request.user, class_subject=info[0], class_number=info[1], class_section=info[2])
+class AddSessionView(CreateView):
+    model = StudySessionModel
+    template_name = 'study_session_post.html'
+    fields = '__all__'
+def post_list(request):
+    formset = StudySessionModel.objects.all()
+    return render(request, 'list.html',{'formset':formset})
 
-#    return render(request, 'classAdded.html')
+class StudySessionDetailView(DetailView):
+    model = StudySessionModel
+    template_name = 'session_details.html'
+
 #https://dev.to/earthcomfy/django-user-profile-3hik
 
 # def submit(request):

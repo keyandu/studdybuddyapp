@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-lvzuc)n7vre4v-34wqkz0((pg9u2bfh&daliipv9r-ep4gr7(^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','study-buddy-app2022.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','study-buddy-app2022.herokuapp.com','testserver']
 
 
 # Application definition
@@ -54,19 +54,12 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend'
     ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'offline',
-            'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
-            #'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
-        }
-    }
-}
+# ACCOUNT_SIGNUP_FORM_CLASS = 'app.forms.EditProfileForm'
+
+ACCOUNT_FORMS = {'signup': 'app.forms.SignupProfileForm'}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # LOGIN_REDIRECT_URL = '/'
 # LOGOUT_REDIRECT_URL = '/'
@@ -165,6 +158,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SOCIALACCOUNT_PROVIDERS = {
+            'google': {
+                'SCOPE': [
+                    'profile',
+                    'email',
+                ],
+                'AUTH_PARAMS': {
+                    'access_type': 'offline',
+                    'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
+                    #'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
+
+                }
+            }
+        }
 
 try:
     if 'HEROKU' in os.environ:
