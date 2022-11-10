@@ -46,17 +46,11 @@ def friendslist(request):
     return render(request, 'friendsList.html', context)
 
 
-def profile(request, username):
-    user = get_object_or_404(User, username=username)
-    profile = Profile.objects.get(user=user)
-    url_name = resolve(request.path).url_name
-
-    context = {
-        'profile': profile,
-        'url_name': url_name,
-    }
-
-    return render(request, 'profile.html', context)
+class profile(DetailView):
+    model= Profile
+    template_name ='profile.html'
+    def get_object(self):
+        return self.request.user
 
 
 def index(request):
