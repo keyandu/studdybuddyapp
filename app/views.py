@@ -88,6 +88,17 @@ class StudySessionDetailView(DetailView):
     model = StudySessionModel
     template_name = 'session_details.html'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(StudySessionDetailView, self).get_context_data(**kwargs)
+        studysession = get_object_or_404(StudySessionModel,id=self.kwargs['pk'])
+        context["enroll_list"] = studysession.enroll.all()
+        return context
+        
+def EnrollView(request,pk):
+    study_session = get_object_or_404(StudySessionModel, id=pk)
+    study_session.enroll.add(request.user)
+    return HttpResponseRedirect(reverse('post_detail',args=[str(pk)]))
+    
 #https://dev.to/earthcomfy/django-user-profile-3hik
 
 # def submit(request):

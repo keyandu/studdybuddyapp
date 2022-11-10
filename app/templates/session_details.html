@@ -20,3 +20,17 @@ When: {{studysessionmodel.start_time.time}}
 How long: {{studysessionmodel.duration}}
 <br />
 Where: {{studysessionmodel.address}}
+<br />
+
+Enroll:
+{% for i in enroll_list %}
+    <li>{{i}}</li>
+{%endfor%}
+    
+
+<hr>
+<br />
+<form action="{% url 'enroll' studysessionmodel.pk%}" method="POST">
+    {% csrf_token%}
+    <button type="submit" , name="studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Enroll </button>
+</form>

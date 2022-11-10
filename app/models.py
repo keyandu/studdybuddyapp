@@ -77,6 +77,7 @@ class StudySessionModel (models.Model):
     duration = models.CharField(max_length = 10)
     address = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    enroll = models.ManyToManyField(User,related_name='user_enroll')
     def __str__(self):
         return self.title+ ' | ' + str(self.author)
     def get_absolute_url(self):

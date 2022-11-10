@@ -15,11 +15,10 @@ from django.contrib.auth.models import User
 import unittest
 from django.test import Client
 
-class SimpleTest(unittest.TestCase):
+class SimpleTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.l = StudySessionModel.objects.all()
-        #self.user =  User.objects.get(username='keyan')
     def test_get_class(self):
         response = self.client.get(reverse('get_class'))
         self.assertEqual(response.status_code,200)
@@ -30,11 +29,14 @@ class SimpleTest(unittest.TestCase):
         self.assertEqual(response.status_code,200)
         self.assertEqual(len(response.context['formset']),len(self.l))
     
-    #def test_search(self):
-     ##  self.assertContains(response,'CS 1110')
+    def test_search(self):
+        response = self.client.post(reverse('search'),{'name':'CS 1110'})
+        self.assertContains(response,'CS 1110')
         
-    #def test_post_study_session(self):
-     #   studysession = StudySessionModel.objects.create(title="test",text="helloworld",start_time = "2022-11-7 5:10:11",duration="5 hr",address="clemons",author = self.user)
-      #  response = self.client.get(reverse('post'))
-       # self.assertEqual(response.status_code,200)
-        #self.assertContains(response,studysession)
+    def test_post_study_session(self):
+        print(User.objects.all())
+        user =  User.objects.get(username='keyan')
+        studysession = StudySessionModel.objects.create(title="test",text="helloworld",start_time = "2022-11-7 5:10:11",duration="5 hr",address="clemons",author = user)
+        response = self.client.get(reverse('post'))
+        self.assertEqual(response.status_code,200)
+        self.assertContains(response,studysession)

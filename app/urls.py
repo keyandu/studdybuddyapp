@@ -14,4 +14,6 @@ urlpatterns = [
     path('study_session_post', AddSessionView.as_view(),name = "post"),
     path('list/', views.post_list,name = 'list'),
     path('list/<int:pk>', StudySessionDetailView.as_view(), name = "post_detail"),
+    path('enroll/<int:pk>', views.EnrollView, name = "enroll"),
+    
 ]
