@@ -12,6 +12,7 @@ from django.urls import reverse
 # # Create your models here.
 class Class(models.Model):
     description_field = models.CharField(max_length=50, default="description")
+    subject_field = models.CharField(max_length=10, default="subject")
     course_number_field = models.CharField(max_length=10, default="course number")
     instructor_field = models.CharField(max_length=50, default="instructor")
     def __str__(self):

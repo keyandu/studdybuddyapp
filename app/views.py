@@ -75,12 +75,13 @@ def add_class(request):
     # get class
     # somehow get user profile
     # add class to profile enrolled classes field
+    profile = request.user.profile
 
     if request.method == "POST":
-        profile = request.user.profile
-        profile.Enrolled_Courses = "test"
+        new_course = request.POST['subject'] + request.POST['course_number']
+        profile.Enrolled_Courses += new_course
         profile.save()
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
 
 class AddSessionView(CreateView):
     model = StudySessionModel

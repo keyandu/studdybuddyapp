@@ -36,4 +36,4 @@ class StudySessionForm(ModelForm):
 class ClassForm(ModelForm):
     class Meta:
         model = Class
-        fields = ['description_field', 'course_number_field', 'instructor_field']
+        fields = ['description_field', 'subject_field', 'course_number_field', 'instructor_field']
