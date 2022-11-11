@@ -1,6 +1,6 @@
 from allauth.account.forms import SignupForm
 from django.forms import ModelForm
-from .models import Profile, StudySessionModel
+from .models import Profile, StudySessionModel, Class
 from django import forms
 from django.contrib.auth.models import User
 
@@ -39,3 +39,8 @@ class StudySessionForm(ModelForm):
             'address':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: clark, rice, discord..'}),
             
             }
+
+class ClassForm(ModelForm):
+    class Meta:
+        model = Class
+        fields = ['description_field', 'subject_field', 'course_number_field', 'instructor_field']

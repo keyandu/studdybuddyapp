@@ -91,7 +91,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>User Results</title>
+    <title>Buddies Found</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -101,8 +101,11 @@
 <body>
 
     <div class="container">
-        <h2>User Results</h2>
-
+        {% if  u_filter.count != 0 %}
+        <h2>Buddies Found</h2>
+        {%else%}
+        <h2>No Buddies Found</h2>
+        {%endif%}
         <form action="{% url 'userSearch' %}" method="POST">
             {% csrf_token %}
             <input type="text" name="name">
@@ -158,7 +161,12 @@
                     <td>{{i.user}}</td>
                     <td>{{i.Age}}</td>
                     <td>{{i.Major}}</td>
-                    <td>{{i.Enrolled_Courses}}</td>
+                    <td>{% for c in i.Enrolled_Courses.all %}
+                        <div>
+                            {{ c.subject_field }} {{ c.catalog_number_field }}
+                        </div>
+                        {% endfor %}
+                    </td>
                     <td>
                         <form action=" = {%url 'class_add'}" method="POST">
                             {% csrf_token%}

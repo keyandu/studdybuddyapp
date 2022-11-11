@@ -12,22 +12,24 @@ import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .models import Profile, StudySessionModel
+from .models import Profile, StudySessionModel, Class
 from .forms import EditProfileForm, StudySessionForm
 from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
+
 def edit_profile(request, pk):
-    # check if the user has a profile
+    # Check if the user has a profile:
     try:
         profile = request.user.profile
     except Profile.DoesNotExist: 
-        # if user has no profile, create one
+        # If user has no profile, create one.
         profile = Profile(user=request.user)
     
     if request.method == 'POST':
-        # set form instance to be the current user's profile
+        # Set form instance to be the current user's profile.
         form = EditProfileForm(request.POST, instance=profile)
         if form.is_valid():
             profile = form.save(commit=False)
@@ -70,6 +72,34 @@ def get_search(request):
         return render(request, 'search.html', {"result":result})
     return render(request, 'search.html',{"result":{"n"}})
 
+# Add class to user profile's Enrolled Courses field.
+# Triggered by 'Add' button on Course List page, classinfo.html.
+def add_class(request):
+    profile = request.user.profile
+    if request.method == "POST":
+        # Course numbers are unique -- use it to check if course exists.
+        course_number = request.POST.get('course_number')
+        
+        # If course does not already exist, create it.
+        if not Class.objects.filter(course_number_field=course_number).exists():
+            subject = request.POST.get('subject')
+            catalog_number = request.POST.get('catalog_number')
+            description = request.POST.get('description')
+            instructor = request.POST.get('instructor')
+            new_course = Class(subject_field=subject, catalog_number_field=catalog_number, 
+                course_number_field=course_number, description_field=description, instructor_field=instructor)
+            new_course.save()
+        else:
+            # Otherwise, get the existing instance.
+            new_course = Class.objects.get(course_number_field=course_number)
+
+        # Add the course to the user profile if it isn't already there.
+        if not profile.Enrolled_Courses.filter(course_number_field=course_number).exists():
+            profile.Enrolled_Courses.add(new_course)
+            profile.save()
+    return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
+
+
 class AddSessionView(CreateView):
     model = StudySessionModel
     form_class = StudySessionForm
@@ -86,9 +116,16 @@ class UpadateSessionView(UpdateView):
 def get_user_search(request):
     if request.method == "POST":
         query_name = request.POST.get('name')
-        user = User.objects.get(username=query_name)
-        user_filter = Profile.objects.filter(user=user)
-    return render(request, 'userSearch.html', {"u_filter": user_filter})
+        # user = get_object_or_404(User, username=query_name)
+        try:
+            user = User.objects.get(username=query_name)
+        except User.DoesNotExist:
+            user = None
+        
+        user_filter = Profile.objects.filter(Q(user=user) | Q(Major__contains=query_name) 
+            | Q(Age__contains=query_name) | Q(Enrolled_Courses__subject_field__contains=query_name) 
+            | Q(Enrolled_Courses__catalog_number_field__contains=query_name))
+        return render(request, 'userSearch.html', {"u_filter": user_filter})
 
 def post_list(request):
     formset = StudySessionModel.objects.all()

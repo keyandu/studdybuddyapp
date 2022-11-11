@@ -93,7 +93,7 @@
 
 <html lang="en">
 <head>
-    <title>User List</title>
+    <title>Find a Buddy</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -103,7 +103,7 @@
 <body>
 
     <div class="container">
-        <h2>User List</h2>
+        <h2>Find a Buddy</h2>
 
         <form action="{% url 'userSearch' %}" method="POST">
             {% csrf_token %}
@@ -139,7 +139,12 @@
                         <td>{{i.user}}</td>
                         <td>{{i.Age}}</td>
                         <td>{{i.Major}}</td>
-                        <td>{{i.Enrolled_Courses}}</td>
+                        <td>{% for c in i.Enrolled_Courses.all %}
+                            <div>
+                                {{ c.subject_field }} {{ c.catalog_number_field }}
+                            </div>
+                            {% endfor %}
+                        </td>
                         <td>
                             <form action=" = {%url 'class_add'}" method="POST">
                                 {% csrf_token%}

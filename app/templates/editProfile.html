@@ -92,7 +92,7 @@
     <!--<h1>My Google OAuth Project </h1>-->
     {% if user.is_authenticated %}
     <button>
-        <a class="nav-link" href="{% url 'user_profile' user.profile.id%}">Return To Profile</a>
+        <a class="nav-link" href="{% url 'user_profile' user.profile.id %}">Return To Profile</a>
     </button>
     {% block content %}
     <!--https://www.bootdey.com/snippets/view/Profile-bio#html-->
@@ -108,7 +108,7 @@
                             <h2>{{user.username}}</h2>
 
 
-                            <form action="{% url 'edit_profile_page' user.profile.id%}" method="post">
+                            <form action="{% url 'edit_profile_page' user.profile.id %}" method="post">
                                 {% csrf_token %}
                                 <div>
                                     <label class="form-label" for="Age"><b>Age:</b></label>
@@ -138,7 +138,7 @@
                                     </div>
                                 </span>
                                 <br>
-                                <button type="submit" class="btn btn-primary" href="{% url 'user_profile' user.profile.id%}">Save changes</button>
+                                <button type="submit" class="btn btn-primary" href="{% url 'user_profile' user.profile.id %}">Save changes</button>
                                 <br>
                             </form>
                         </div>
