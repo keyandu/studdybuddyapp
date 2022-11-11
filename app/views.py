@@ -18,6 +18,8 @@ from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
+
 def edit_profile(request, pk):
     # check if the user has a profile
     try:
@@ -84,9 +86,13 @@ class UpadateSessionView(UpdateView):
 def get_user_search(request):
     if request.method == "POST":
         query_name = request.POST.get('name')
-        user = User.objects.get(username=query_name)
-        user_filter = Profile.objects.filter(user=user)
-    return render(request, 'userSearch.html', {"u_filter": user_filter})
+        # user = get_object_or_404(User, username=query_name)
+        try:
+            user = User.objects.get(username=query_name)
+        except User.DoesNotExist:
+            user = None
+        user_filter = Profile.objects.filter(Q(user=user) | Q(Major__contains=query_name) | Q(Age__contains=query_name) | Q(Enrolled_Courses__contains=query_name))
+        return render(request, 'userSearch.html', {"u_filter": user_filter})
 
 def post_list(request):
     formset = StudySessionModel.objects.all()
