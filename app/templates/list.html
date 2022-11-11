@@ -64,6 +64,13 @@
 
                     {% endif %}
                 </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'my_post_session'%}">Sessions I Created</a>
+                    {% else %}
+
+                    {% endif %}
+                </li>
 
             </ul>
             {% if user.is_authenticated %}

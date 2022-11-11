@@ -31,7 +31,7 @@
                 </li>
                 <li class="nav-item">
                     {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'user_profile' user.profile %}">Profile</a>
+                    <a class="nav-link" href="{% url 'user_profile' user.profile.id %}">Profile</a>
                     {% else %}
 
                     {% endif %}
@@ -60,6 +60,13 @@
                 <li class="nav-item">
                     {% if user.is_authenticated %}
                     <a class="nav-link" href="/friends">Friends</a>
+                    {% else %}
+
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'my_post_session'%}">Sessions I Created</a>
                     {% else %}
 
                     {% endif %}

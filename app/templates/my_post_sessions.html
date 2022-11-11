@@ -1,3 +1,4 @@
+
 {% load static %}
 {% load socialaccount %}
 <html lang="en">
@@ -80,37 +81,17 @@
             {% endif %}
         </div>
 </nav>
-<h1>{{studysessionmodel.title}}</h1>
-{{studysessionmodel.start_time.date}}
-<br />
-<small>
-    By: {{studysessionmodel.author}}
-</small>
-<br />
+<h1>Sessions I Created</h1>
+{% if m_posts %}
+<ul>
+    {% for session in m_posts %}
+    <li>
+        <a href="{% url 'post_detail' session.pk %}">{{ session.title }}</a> - {{session.author}}<br />
+        {{session.start_time}} - {{session.duration}}
+    </li>
 
-<hr>
-{{studysessionmodel.text}}
-<br />
-
-
-<br />
-When: {{studysessionmodel.start_time.time}}
-
-<br />
-How long: {{studysessionmodel.duration}}
-<br />
-Where: {{studysessionmodel.address}}
-<br />
-
-Enroll:
-{% for i in enroll_list %}
-<li>{{i}}</li>
-{%endfor%}
-
-
-<hr>
-<br />
-<form action="{% url 'enroll' studysessionmodel.pk%}" method="POST">
-    {% csrf_token%}
-    <button type="submit" , name="studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Enroll </button>
-</form>
+    {% endfor %}
+</ul>
+    {% else %}
+<p>No posts are available.</p>
+    {% endif %}

@@ -80,37 +80,22 @@
             {% endif %}
         </div>
 </nav>
-<h1>{{studysessionmodel.title}}</h1>
-{{studysessionmodel.start_time.date}}
-<br />
-<small>
-    By: {{studysessionmodel.author}}
-</small>
-<br />
+<br>
 
-<hr>
-{{studysessionmodel.text}}
-<br />
+</head>
+<body>
+    <div class="form-control">
+        <div class="container mt-3">
+            <h2>My Study Session</h2>
+            <p>Update your study session</p>
 
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" name="post" class="btn btn-primary">Post</button>
 
-<br />
-When: {{studysessionmodel.start_time.time}}
+            </form>
+        </div>
+    </div>
+</body>
 
-<br />
-How long: {{studysessionmodel.duration}}
-<br />
-Where: {{studysessionmodel.address}}
-<br />
-
-Enroll:
-{% for i in enroll_list %}
-<li>{{i}}</li>
-{%endfor%}
-
-
-<hr>
-<br />
-<form action="{% url 'enroll' studysessionmodel.pk%}" method="POST">
-    {% csrf_token%}
-    <button type="submit" , name="studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Enroll </button>
-</form>

@@ -27,9 +27,15 @@ class SignupProfileForm(SignupForm):
 class StudySessionForm(ModelForm):
     class Meta:
         model = StudySessionModel
-        fields = ('title','author', 'text','duration','start_time','address')
+        fields = ('title','class_name', 'text','duration','start_time','address')
         #start_time = forms.DateTimeField(input_formats = ['%Y-%m-%d %H:%M'], widget=forms.DateTimeInput(attrs={'class':'form-control form-control-lg','type':'datetime-local'}))
         widgets={
-            'text': forms.Textarea(attrs = {'cols': 80, 'rows': 20})
+            'title':forms.TextInput(attrs={'class':'form-control'}),
+            'class_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'eg: CS 1110'}),
+            'text': forms.Textarea(attrs = {'class':'form-control'}),
+            'duration':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: 2 hours'}),
+            'start_time':forms.Select(attrs={'class':'form-control'}),
+            'address':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: clark, rice, discord..'}),
+            
             }
 
