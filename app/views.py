@@ -120,7 +120,10 @@ def get_user_search(request):
             user = User.objects.get(username=query_name)
         except User.DoesNotExist:
             user = None
-        user_filter = Profile.objects.filter(Q(user=user) | Q(Major__contains=query_name) | Q(Age__contains=query_name) | Q(Enrolled_Courses__contains=query_name))
+        
+        user_filter = Profile.objects.filter(Q(user=user) | Q(Major__contains=query_name) 
+            | Q(Age__contains=query_name) | Q(Enrolled_Courses__subject_field__contains=query_name) 
+            | Q(Enrolled_Courses__catalog_number_field__contains=query_name))
         return render(request, 'userSearch.html', {"u_filter": user_filter})
 
 def post_list(request):
