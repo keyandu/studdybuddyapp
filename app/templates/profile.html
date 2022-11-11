@@ -96,7 +96,10 @@
                             <br></br>
                             <span><strong>Major:</strong> {{user.profile.Major}}</span>
                             <br></br>
-                            <span><strong>Courses:</strong> {{user.profile.Enrolled_Courses}}</span>
+                            <span><strong>Courses:</strong></span>
+                            {% for c in user.profile.Enrolled_Courses.all %}
+                                <br>{{ c.subject_field }} {{ c.catalog_number_field }}
+                            {% endfor %}
                             <br></br>
                             <p>{{user.profile.Bio}}</p>
 

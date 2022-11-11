@@ -12,12 +12,13 @@ import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .models import Profile, StudySessionModel
+from .models import Profile, StudySessionModel, Class
 from .forms import EditProfileForm, StudySessionForm
 from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+import json
 
 def edit_profile(request, pk):
     # check if the user has a profile
@@ -76,10 +77,24 @@ def get_search(request):
 def add_class(request):
     profile = request.user.profile
     if request.method == "POST":
-        new_course = request.POST['subject'] + request.POST['course_number']
-        profile.Enrolled_Courses += new_course
-        profile.save()
+        # Create new course
+        subject = request.POST.get('subject')
+        catalog_number = request.POST.get('catalog_number')
+        course_number = request.POST.get('course_number')
+        description = request.POST.get('description')
+        instructor = request.POST.get('instructor')
+        new_course = Class(subject_field=subject, catalog_number_field=catalog_number, course_number_field=course_number, description_field=description, instructor_field=instructor)
+        # TODO: check if course exists already
+        if not Class.objects.filter(course_number_field=course_number).exists():
+            new_course.save()
+
+        if not profile.Enrolled_Courses.filter(course_number_field=course_number).exists():
+            profile.Enrolled_Courses.add(new_course)
+            profile.save()
     return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
+
+#def create_class(subject, course_number):
+
 
 class AddSessionView(CreateView):
     model = StudySessionModel

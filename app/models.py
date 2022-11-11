@@ -11,12 +11,13 @@ from django.urls import reverse
 #
 # # Create your models here.
 class Class(models.Model):
-    description_field = models.CharField(max_length=50, default="description")
     subject_field = models.CharField(max_length=10, default="subject")
+    catalog_number_field = models.CharField(max_length=10, default="catalog")
     course_number_field = models.CharField(max_length=10, default="course number")
-    instructor_field = models.CharField(max_length=50, default="instructor")
+    description_field = models.CharField(max_length=50, default="description", blank=True)
+    instructor_field = models.CharField(max_length=50, default="instructor", blank=True)
     def __str__(self):
-        return self.description_field, self.course_number_field, self.instructor_field
+        return self.subject_field + self.catalog_number_field
 
 
 class Profile(models.Model):
@@ -30,7 +31,8 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     Age = models.CharField(max_length=150, choices=Ages)
-    Enrolled_Courses = models.TextField()
+    # Enrolled_Courses = models.TextField()
+    Enrolled_Courses = models.ManyToManyField(Class)
     Major = models.TextField()
     Bio = models.TextField()
     friends = models.ManyToManyField(User, related_name='friends', blank=True)
