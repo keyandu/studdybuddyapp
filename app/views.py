@@ -79,8 +79,9 @@ class AddSessionView(CreateView):
 
 class UpadateSessionView(UpdateView):
     model = StudySessionModel
+    form_class = StudySessionForm
     template_name = 'editStudySession.html'
-    fields = ['title','text','start_time','address','class_name']
+    #fields = ['title','text','start_time','address','class_name']
 
 def get_user_search(request):
     if request.method == "POST":

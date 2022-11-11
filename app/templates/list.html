@@ -92,7 +92,7 @@
 <ul>
     {% for form in formset %}
     <li>
-        <a href="{% url 'post_detail' form.pk %}">{{ form.title }}</a> - {{form.author}}<br />
+        <a href="{% url 'post_detail' form.pk %}">{{ form.title }}</a> - {{form.class_name}}<br />
         {{form.start_time}} - {{form.duration}}
     </li>
     {% endfor %}
