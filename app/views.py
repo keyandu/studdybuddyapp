@@ -18,18 +18,17 @@ from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
-import json
 
 def edit_profile(request, pk):
-    # check if the user has a profile
+    # Check if the user has a profile:
     try:
         profile = request.user.profile
     except Profile.DoesNotExist: 
-        # if user has no profile, create one
+        # If user has no profile, create one.
         profile = Profile(user=request.user)
     
     if request.method == 'POST':
-        # set form instance to be the current user's profile
+        # Set form instance to be the current user's profile.
         form = EditProfileForm(request.POST, instance=profile)
         if form.is_valid():
             profile = form.save(commit=False)
