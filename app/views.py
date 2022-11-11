@@ -77,23 +77,27 @@ def get_search(request):
 def add_class(request):
     profile = request.user.profile
     if request.method == "POST":
-        # Create new course
-        subject = request.POST.get('subject')
-        catalog_number = request.POST.get('catalog_number')
+        # Course numbers are unique -- use it to check if course exists.
         course_number = request.POST.get('course_number')
-        description = request.POST.get('description')
-        instructor = request.POST.get('instructor')
-        new_course = Class(subject_field=subject, catalog_number_field=catalog_number, course_number_field=course_number, description_field=description, instructor_field=instructor)
-        # TODO: check if course exists already
+        
+        # If course does not already exist, create it.
         if not Class.objects.filter(course_number_field=course_number).exists():
+            subject = request.POST.get('subject')
+            catalog_number = request.POST.get('catalog_number')
+            description = request.POST.get('description')
+            instructor = request.POST.get('instructor')
+            new_course = Class(subject_field=subject, catalog_number_field=catalog_number, 
+                course_number_field=course_number, description_field=description, instructor_field=instructor)
             new_course.save()
+        else:
+            # Otherwise, get the existing instance.
+            new_course = Class.objects.get(course_number_field=course_number)
 
+        # Add the course to the user profile if it isn't already there.
         if not profile.Enrolled_Courses.filter(course_number_field=course_number).exists():
             profile.Enrolled_Courses.add(new_course)
             profile.save()
     return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
-
-#def create_class(subject, course_number):
 
 
 class AddSessionView(CreateView):
