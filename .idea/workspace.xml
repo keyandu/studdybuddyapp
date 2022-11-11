@@ -4,11 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6443885b-7bc6-4302-ad81-11e41cf15fdf" name="Changes" comment="add-profiles-on-signup" />
+    <list default="true" id="6443885b-7bc6-4302-ad81-11e41cf15fdf" name="Changes" comment="add-profiles-on-signup">
+      <change afterPath="$PROJECT_DIR$/app/templates/userSearch.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/classinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/classinfo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/editProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/editProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/findBuddy.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/userList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/friendsList.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/friendsList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/session_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/session_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -24,6 +44,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>

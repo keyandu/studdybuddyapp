@@ -33,3 +33,4 @@ class StudySessionForm(ModelForm):
             'text': forms.Textarea(attrs = {'cols': 80, 'rows': 20})
             }
 
+

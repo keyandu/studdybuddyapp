@@ -45,6 +45,10 @@ def friendslist(request):
     context = {'profile': profile}
     return render(request, 'friendsList.html', context)
 
+# def userlist(request):
+#     profile = Profile.objects.all()
+#     context = {'profile': profile}
+#     return render(request, 'findBuddy.html', context)
 
 class profile(DetailView):
     model= Profile
@@ -70,6 +74,13 @@ def get_search(request):
         return render(request, 'search.html', {"result":result})
     return render(request, 'search.html',{"result":{"n"}})
 
+def get_user_search(request):
+    if request.method == "POST":
+        query_name = request.POST.get('name')
+        user = User.objects.get(username=query_name)
+        user_filter = Profile.objects.filter(user=user)
+    return render(request, 'userSearch.html', {"u_filter": user_filter})
+
 class AddSessionView(CreateView):
     model = StudySessionModel
     template_name = 'study_session_post.html'
@@ -81,6 +92,12 @@ def post_list(request):
 class StudySessionDetailView(DetailView):
     model = StudySessionModel
     template_name = 'session_details.html'
+
+def user_list(request):
+    userList = Profile.objects.all()
+    context = {'userList': userList}
+    return render(request, 'userList.html', context)
+
 
 #https://dev.to/earthcomfy/django-user-profile-3hik
 

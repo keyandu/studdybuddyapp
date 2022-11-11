@@ -71,10 +71,12 @@
   </div>
 </nav>
 
-<!DOCTYPE html>
+</body>
+</html>
+
 <html lang="en">
 <head>
-    <title>Course List</title>
+    <title>User List</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -84,38 +86,17 @@
 <body>
 
     <div class="container">
-        <h2>Course List</h2>
+        <h2>User List</h2>
 
-        <form action="{% url 'search' %}" method="POST">
+        <form action="{% url 'userSearch' %}" method="POST">
             {% csrf_token %}
             <input type="text" name="name">
             <input type="submit" name="submit" value="Search">
         </form>
-        <!--  <br>-->
-        <!--  <ul class="list-group" id="myList">-->
-        <!--    <li class="list-group-item">{{i.subject}} {{i.catalog_number}}</li>-->
-        <!--    <li class="list-group-item">{{i.description}}</li>-->
-        <!--    <li class="list-group-item">{{i.course_section}}</li>-->
-        <!--    <li class="list-group-item">{{i.instructor_name}}</li>-->
-        <!--  </ul>-->
     </div>
 
-    <script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myList li").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-    </script>
-
-</body>
-</html>
-
 <head>
-    <!--  <title>Course List</title>-->
+<!--      <title>User List</title>-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -129,20 +110,24 @@ $(document).ready(function(){
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Course Number</th>
-                    <th>Description</th>
-                    <th>Course Section</th>
-                    <th>Instructor</th>
+                    <th>Name</th>
+					<th>Age</th>
+                    <th>Major</th>
+                    <th>Enrolled Courses</th>
                 </tr>
             </thead>
             <tbody>
-                {% for i in result %}
+                {% for i in userList %}
                 <tr>
-                    <td>{{i.subject}} {{i.catalog_number}}</td>
-                    <td>{{i.description}}</td>
-                    <td>{{i.course_section}}</td>
-                    <td>{{i.instructor.name}}</td>
-                    <td><button type="button" class="btn btn-info">Add</button>
+                    <td>{{i.user}}</td>
+                    <td>{{i.Age}}</td>
+                    <td>{{i.Major}}</td>
+                    <td>{{i.Enrolled_Courses}}</td>
+                    <td>
+                        <form action=" = {%url 'class_add'}" method="POST">
+                            {% csrf_token%}
+                            <button type="submit" ,name="class_id" ,value=i, class="btn btn-info">Add Friend</button>
+                        </form>
                     <td>
                 </tr>
                 {%endfor%}
