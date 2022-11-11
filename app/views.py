@@ -18,6 +18,7 @@ from django.forms import modelformset_factory
 from django.views.generic import DetailView
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+
 def edit_profile(request, pk):
     # check if the user has a profile
     try:
@@ -69,6 +70,17 @@ def get_search(request):
         result = list(filter(lambda x: (x['description'].upper().__contains__(query_name.upper()) or (x['subject']+" "+x['catalog_number']).upper().__contains__(query_name.upper()) or x['instructor']['name'].upper().__contains__(query_name.upper())), response))
         return render(request, 'search.html', {"result":result})
     return render(request, 'search.html',{"result":{"n"}})
+
+def add_class(request):
+    # get class
+    # somehow get user profile
+    # add class to profile enrolled classes field
+
+    if request.method == "POST":
+        profile = request.user.profile
+        profile.Enrolled_Courses = "test"
+        profile.save()
+    return HttpResponseRedirect(reverse('home'))
 
 class AddSessionView(CreateView):
     model = StudySessionModel

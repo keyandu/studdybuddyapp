@@ -1,6 +1,6 @@
 from allauth.account.forms import SignupForm
 from django.forms import ModelForm
-from .models import Profile, StudySessionModel
+from .models import Profile, StudySessionModel, Class
 from django import forms
 
 class EditProfileForm(ModelForm):
@@ -33,3 +33,7 @@ class StudySessionForm(ModelForm):
             'text': forms.Textarea(attrs = {'cols': 80, 'rows': 20})
             }
 
+class ClassForm(ModelForm):
+    class Meta:
+        model = Class
+        fields = ['description_field', 'course_number_field', 'instructor_field']
