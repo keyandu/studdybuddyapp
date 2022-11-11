@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from http.client import responses
 from urllib import response
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, UpdateView
 # from .models import UserClass
 import requests
 from django.http import HttpResponseRedirect
@@ -101,16 +101,29 @@ def add_class(request):
 
 class AddSessionView(CreateView):
     model = StudySessionModel
+    form_class = StudySessionForm
     template_name = 'study_session_post.html'
-    fields = '__all__'
+
+    #fields = '__all__'
+
+class UpadateSessionView(UpdateView):
+    model = StudySessionModel
+    template_name = 'editStudySession.html'
+    fields = ['title','text','start_time','address','class_name']
+
+def get_user_search(request):
+    if request.method == "POST":
+        query_name = request.POST.get('name')
+        user = User.objects.get(username=query_name)
+        user_filter = Profile.objects.filter(user=user)
+    return render(request, 'userSearch.html', {"u_filter": user_filter})
+
 def post_list(request):
     formset = StudySessionModel.objects.all()
     return render(request, 'list.html',{'formset':formset})
-
 class StudySessionDetailView(DetailView):
     model = StudySessionModel
     template_name = 'session_details.html'
-
     def get_context_data(self, *args, **kwargs):
         context = super(StudySessionDetailView, self).get_context_data(**kwargs)
         studysession = get_object_or_404(StudySessionModel,id=self.kwargs['pk'])
@@ -122,6 +135,22 @@ def EnrollView(request,pk):
     study_session.enroll.add(request.user)
     return HttpResponseRedirect(reverse('post_detail',args=[str(pk)]))
     
+def EnrolledSessionsView(request):
+    user = User.objects.get(username=request.user.username)
+    enrolled = user.user_enroll.all()
+    return render(request, 'index.html', {"enroll":enrolled})
+
+def ListMyPostSessions(request):
+    user = User.objects.get(username=request.user.username)
+    my_posts = StudySessionModel.objects.filter(author=user)
+    return render(request,'my_post_sessions.html',{"m_posts":my_posts})
+
+def user_list(request):
+    userList = Profile.objects.all()
+    context = {'userList': userList}
+    return render(request, 'userList.html', context)
+
+
 #https://dev.to/earthcomfy/django-user-profile-3hik
 
 # def submit(request):
