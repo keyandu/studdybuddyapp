@@ -101,8 +101,11 @@
 <body>
 
     <div class="container">
+        {% if  u_filter.count != 0 %}
         <h2>Buddies Found</h2>
-
+        {%else%}
+        <h2>No Buddies Found</h2>
+        {%endif%}
         <form action="{% url 'userSearch' %}" method="POST">
             {% csrf_token %}
             <input type="text" name="name">
