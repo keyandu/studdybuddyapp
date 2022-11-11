@@ -74,6 +74,7 @@ class AddSessionView(CreateView):
     model = StudySessionModel
     form_class = StudySessionForm
     template_name = 'study_session_post.html'
+
     #fields = '__all__'
 
 class UpadateSessionView(UpdateView):
