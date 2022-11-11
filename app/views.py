@@ -71,12 +71,10 @@ def get_search(request):
         return render(request, 'search.html', {"result":result})
     return render(request, 'search.html',{"result":{"n"}})
 
+# Add class to user profile's Enrolled Courses field.
+# Triggered by 'Add' button on Course List page, classinfo.html.
 def add_class(request):
-    # get class
-    # somehow get user profile
-    # add class to profile enrolled classes field
     profile = request.user.profile
-
     if request.method == "POST":
         new_course = request.POST['subject'] + request.POST['course_number']
         profile.Enrolled_Courses += new_course

@@ -132,6 +132,7 @@
                     <td>
                         <form action="{% url 'add_class' %}" method="POST">
                             {% csrf_token %}
+                            <!-- Save course info to submit in POST request for Add button: -->
                             <input type="hidden" name="subject" value="{{i.subject}}">
                             <input type="hidden" name="course_number" value="{{i.catalog_number}}">
                             <button type="submit" name="class_id" value=i class="btn btn-info">Add</button>
