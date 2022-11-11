@@ -170,6 +170,7 @@ SOCIALACCOUNT_PROVIDERS = {
                     'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
                     #'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
 
+
                 }
             }
         }

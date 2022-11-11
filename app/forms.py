@@ -38,4 +38,3 @@ class StudySessionForm(ModelForm):
             'address':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: clark, rice, discord..'}),
             
             }
-

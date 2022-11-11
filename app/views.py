@@ -81,16 +81,19 @@ class UpadateSessionView(UpdateView):
     template_name = 'editStudySession.html'
     fields = ['title','text','start_time','address','class_name']
 
+def get_user_search(request):
+    if request.method == "POST":
+        query_name = request.POST.get('name')
+        user = User.objects.get(username=query_name)
+        user_filter = Profile.objects.filter(user=user)
+    return render(request, 'userSearch.html', {"u_filter": user_filter})
+
 def post_list(request):
     formset = StudySessionModel.objects.all()
     return render(request, 'list.html',{'formset':formset})
-
-
-
 class StudySessionDetailView(DetailView):
     model = StudySessionModel
     template_name = 'session_details.html'
-
     def get_context_data(self, *args, **kwargs):
         context = super(StudySessionDetailView, self).get_context_data(**kwargs)
         studysession = get_object_or_404(StudySessionModel,id=self.kwargs['pk'])
@@ -112,6 +115,10 @@ def ListMyPostSessions(request):
     my_posts = StudySessionModel.objects.filter(author=user)
     return render(request,'my_post_sessions.html',{"m_posts":my_posts})
 
+def user_list(request):
+    userList = Profile.objects.all()
+    context = {'userList': userList}
+    return render(request, 'userList.html', context)
 
 
 #https://dev.to/earthcomfy/django-user-profile-3hik

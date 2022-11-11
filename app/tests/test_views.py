@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 import unittest
 from django.test import Client
 
+
 class SimpleTest(TestCase):
     def setUp(self):
         self.client = Client()
@@ -29,6 +30,7 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code,200)
         self.assertEqual(len(response.context['formset']),len(self.l))
     
+
     def test_search(self):
         response = self.client.post(reverse('search'),{'name':'CS 1110'})
         self.assertContains(response,'CS 1110')
@@ -40,3 +42,4 @@ class SimpleTest(TestCase):
         response = self.client.get(reverse('post'))
         self.assertEqual(response.status_code,200)
         self.assertContains(response,studysession)
+
