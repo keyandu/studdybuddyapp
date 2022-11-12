@@ -32,6 +32,7 @@ class StudySessionForm(ModelForm):
         #start_time = forms.DateTimeField(input_formats = ['%Y-%m-%d %H:%M'], widget=forms.DateTimeInput(attrs={'class':'form-control form-control-lg','type':'datetime-local'}))
         widgets={
             'title':forms.TextInput(attrs={'class':'form-control'}),
+            'author':forms.ModelChoiceField(queryset=Profile.Enrolled_Courses, empty_label="Select a Course"),
             'class_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'eg: CS 1110'}),
             'text': forms.Textarea(attrs = {'class':'form-control'}),
             'duration':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: 2 hours'}),

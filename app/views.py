@@ -50,8 +50,9 @@ def friendslist(request):
 
 
 class profile(DetailView):
-    model= Profile
-    template_name ='profile.html'
+    model = Profile
+    template_name = 'profile.html'
+
     def get_object(self):
         return self.request.user
 
@@ -105,6 +106,15 @@ def add_class(request):
 #    model = StudySessionModel
 #    form_class = StudySessionForm
 #    template_name = 'study_session_post.html'
+
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        # if user has no profile, create one
+        profile = Profile(user=request.user)
+
+    def get_object(self):
+        return self.request.user
 
     #fields = '__all__'
 
