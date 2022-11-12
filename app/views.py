@@ -106,31 +106,49 @@ def add_class(request):
 #    model = StudySessionModel
 #    form_class = StudySessionForm
 #    template_name = 'study_session_post.html'
-
-    try:
-        profile = request.user.profile
-    except Profile.DoesNotExist:
-        # if user has no profile, create one
-        profile = Profile(user=request.user)
-
-    def get_object(self):
-        return self.request.user
+#
+#     try:
+#         profile = request.user.profile
+#     except Profile.DoesNotExist:
+#         # if user has no profile, create one
+#         profile = Profile(user=request.user)
+#
+#     def get_object(self):
+#         return self.request.user
 
     #fields = '__all__'
 
 def AddSessionView(request):
+
     if request.method == 'POST':
         # Set form instance to be the current user's profile.
         form = StudySessionForm(request.POST)
+        if 'class_name' in form.errors:
+            del form.errors['class_name']
         if form.is_valid():
             session = form.save(commit=False)
+            session.class_name = request.POST.get("class_name")
             session.author = request.user
             session.save()
-            return HttpResponseRedirect(reverse('list'))    
+            return HttpResponseRedirect(reverse('list'))
     else:
         form = StudySessionForm()
 
-    return render(request, 'study_session_post.html', {'form': form})
+    def get_form(form, *args, **kwargs):
+        profile = request.user.profile
+        set = list(profile.Enrolled_Courses.all())
+        result = []
+
+        for i in set:
+
+            b = i.subject_field + i.catalog_number_field
+            a = (str(b), str(b))
+            result.append(a)
+        form.fields['class_name'].choices = result
+
+        return form
+
+    return render(request, 'study_session_post.html', {'form': get_form(form)})
 
 class UpadateSessionView(UpdateView):
     model = StudySessionModel
