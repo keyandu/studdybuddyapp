@@ -101,12 +101,26 @@ def add_class(request):
     return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
 
 
-class AddSessionView(CreateView):
-    model = StudySessionModel
-    form_class = StudySessionForm
-    template_name = 'study_session_post.html'
+#class AddSessionView(CreateView):
+#    model = StudySessionModel
+#    form_class = StudySessionForm
+#    template_name = 'study_session_post.html'
 
     #fields = '__all__'
+
+def AddSessionView(request):
+    if request.method == 'POST':
+        # Set form instance to be the current user's profile.
+        form = StudySessionForm(request.POST)
+        if form.is_valid():
+            session = form.save(commit=False)
+            session.author = request.user
+            session.save()
+            return HttpResponseRedirect(reverse('list'))    
+    else:
+        form = StudySessionForm()
+
+    return render(request, 'study_session_post.html', {'form': form})
 
 class UpadateSessionView(UpdateView):
     model = StudySessionModel
