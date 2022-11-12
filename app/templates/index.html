@@ -124,6 +124,7 @@
                    target="_blank">Login</a>
                 {% endif %}
                 <br />
+                {% if user.is_authenticated %}
                 <h1>My Enrolled Sessions</h1>
                 {% if enroll %}
                 <ul>
@@ -139,6 +140,7 @@
                 {% else %}
                 <p>You haven't enrolled any sessions.</p>
                 {% endif %}
+                {%endif%}
                 <!--        </div>-->
             </div>
         </div>

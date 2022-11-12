@@ -40,6 +40,22 @@ class StudySessionForm(ModelForm):
             
             }
 
+class StudySessionEditForm(ModelForm):
+    class Meta:
+        model = StudySessionModel
+        fields = ('title','class_name', 'text','duration','start_time','address')
+        #start_time = forms.DateTimeField(input_formats = ['%Y-%m-%d %H:%M'], widget=forms.DateTimeInput(attrs={'class':'form-control form-control-lg','type':'datetime-local'}))
+        widgets={
+            'title':forms.TextInput(attrs={'class':'form-control'}),
+            'class_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'eg: CS 1110'}),
+            'text': forms.Textarea(attrs = {'class':'form-control'}),
+            'duration':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: 2 hours'}),
+            'start_time':forms.DateTimeInput(format=('%m/%d/%y %H:%M'), attrs = {'class':'form-control','placeholder':'10/25/06 14:30'}),
+            'address':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: clark, rice, discord..'}),
+            
+            }
+
+
 class ClassForm(ModelForm):
     class Meta:
         model = Class

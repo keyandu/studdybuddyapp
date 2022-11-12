@@ -1,24 +1,25 @@
 
 from re import template
+from sre_constants import SUCCESS
 from django.contrib.auth.models import User
 from django.urls import resolve
 from django.http import HttpResponse
 from http.client import responses
 from urllib import response
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import DetailView, CreateView, UpdateView,DeleteView
 # from .models import UserClass
 import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from .models import Profile, StudySessionModel, Class
-from .forms import EditProfileForm, StudySessionForm
-from django.forms import modelformset_factory
+from .forms import EditProfileForm, StudySessionForm, StudySessionEditForm
 from django.views.generic import DetailView
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.urls import reverse_lazy
 
 def edit_profile(request, pk):
     # Check if the user has a profile:
@@ -109,10 +110,14 @@ class AddSessionView(CreateView):
 
 class UpadateSessionView(UpdateView):
     model = StudySessionModel
-    form_class = StudySessionForm
+    form_class = StudySessionEditForm
     template_name = 'editStudySession.html'
     #fields = ['title','text','start_time','address','class_name']
 
+class DeleteSessionView(DeleteView):
+    model = StudySessionModel
+    template_name = 'delete_session.html'
+    success_url = reverse_lazy('list')
 def get_user_search(request):
     if request.method == "POST":
         query_name = request.POST.get('name')
@@ -122,9 +127,8 @@ def get_user_search(request):
         except User.DoesNotExist:
             user = None
         
-        user_filter = Profile.objects.filter(Q(user=user) | Q(Major__contains=query_name) 
-            | Q(Age__contains=query_name) | Q(Enrolled_Courses__subject_field__contains=query_name) 
-            | Q(Enrolled_Courses__catalog_number_field__contains=query_name))
+        user_filter = Profile.objects.filter(Q(user=user) |Q(Enrolled_Courses__subject_field__contains=query_name) 
+            | Q(Age__contains=query_name) |  Q(Major__contains=query_name) | Q(Enrolled_Courses__catalog_number_field__contains=query_name))
         return render(request, 'userSearch.html', {"u_filter": user_filter})
 
 def post_list(request):

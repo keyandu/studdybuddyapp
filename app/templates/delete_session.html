@@ -11,26 +11,20 @@
 </html>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Study Buddy</a>
+        <a class="navbar-brand" href="#">Study Buddy</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
                     {% if user.is_authenticated %}
-                    <a class="nav-link" href="/user_list">Find a Buddy</a>
-                    {% else %}
-
-                    {% endif %}
-                </li>
-                <li class="nav-item">
-                    {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'user_profile' user.profile.id %}">Profile</a>
+                    <a class="nav-link" href="/">Find a Buddy</a>
                     {% else %}
 
                     {% endif %}
@@ -85,49 +79,20 @@
             <a class="nav-item nav-link" href="{% provider_login_url 'google' %}">Login</a>
             {% endif %}
         </div>
-    </div>
 </nav>
+<br>
 
-<h1>{{studysessionmodel.title}}</h1>
-{{studysessionmodel.start_time.date}}
-<br />
-<small>
-    By: {{studysessionmodel.author}}
-</small>
-<br />
+<body>
+    <div class="form-control">
+        <div class="container mt-3">
+            <h2>My Study Session</h2>
+            <p>Post your study session</p>
+            <form method="POST">
+                {% csrf_token %}
+                <strong>Are you sure?</strong><br />
+                <button type="submit" name="post" class="btn btn-primary">Delete Study Session</button>
 
-<hr>
-{{studysessionmodel.text}}
-<br />
-
-<br />
-When: {{studysessionmodel.start_time.time}}
-
-<br />
-How long: {{studysessionmodel.duration}}
-<br />
-Where: {{studysessionmodel.address}}
-<br />
-
-Enroll:
-{% for i in enroll_list %}
-<li>{{i}}</li>
-{%endfor%}
-<hr>
-<br />
-<form action="{% url 'enroll' studysessionmodel.pk%}" method="POST">
-    {% csrf_token%}
-    <button type="submit" , name="studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Enroll </button>
-</form>
-
-{% if user.id == studysessionmodel.author.id%}
-    <form action="{% url 'edit_session' studysessionmodel.pk%}" method="POST">
-        {% csrf_token%}
-        <button type="submit" , name="edit_studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Edit </button>
-    </form>
-    <form action="{% url 'delete_session' studysessionmodel.pk%}" method="POST">
-        {% csrf_token%}
-        <button type="submit" , name="delete_studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Delete </button>
-    </form>
-
-{%endif%}
+            </form>
+        </div>
+    </div>
+</body>
