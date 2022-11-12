@@ -35,7 +35,7 @@ class Profile(models.Model):
     Enrolled_Courses = models.ManyToManyField(Class, blank=True)
     Major = models.TextField()
     Bio = models.TextField(blank=True)
-    friends = models.ManyToManyField(User, related_name='friends', blank=True)
+
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     @receiver(post_save, sender=User)
@@ -47,11 +47,11 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
-    def get_friends(self):
-        return self.friends.all()
+    #def get_friends(self):
+        #return self.friends.all()
 
-    def get_friends_no(self):
-        return self.friends.all().count()
+    #def get_friends_no(self):
+        #return self.friends.all().count()
     def __str__(self):
         return str(self.user)
 
