@@ -87,21 +87,97 @@
         </div>
     </div>
 </nav>
-<br>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Buddies Found</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="form-control">
-        <div class="container mt-3">
-            <h2>My Study Session</h2>
-            <p>Post your study session</p>
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{form.as_p}}
-                        <button type="submit" name="post" class="btn btn-primary">Post</button>
 
-                    </form>
-                </div>
-        </div>
+    <div class="container">
+        {% if  u_filter.count != 0 %}
+        <h2>Buddies Found</h2>
+        {%else%}
+        <h2>No Buddies Found</h2>
+        {%endif%}
+        <form action="{% url 'userSearch' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="name">
+            <input type="submit" name="submit" value="Search">
+        </form>
+        <!--  <br>-->
+        <!--  <ul class="list-group" id="myList">-->
+        <!--    <li class="list-group-item">{{i.subject}} {{i.catalog_number}}</li>-->
+        <!--    <li class="list-group-item">{{i.description}}</li>-->
+        <!--    <li class="list-group-item">{{i.course_section}}</li>-->
+        <!--    <li class="list-group-item">{{i.instructor_name}}</li>-->
+        <!--  </ul>-->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myList li").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
 </body>
+</html>
 
+<head>
+    <title>User Results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <!--  <h2>Course List</h2>-->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Major</th>
+                    <th>Enrolled Courses</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in u_filter %}
+                <tr>
+                    <td>{{i.user}}</td>
+                    <td>{{i.Age}}</td>
+                    <td>{{i.Major}}</td>
+                    <td>{% for c in i.Enrolled_Courses.all %}
+                        <div>
+                            {{ c.subject_field }} {{ c.catalog_number_field }}
+                        </div>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <form action=" = {%url 'class_add'}" method="POST">
+                            {% csrf_token%}
+                            <button type="submit" ,name="class_id" ,value=i, class="btn btn-info">Add Friend</button>
+                        </form>
+                    <td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
