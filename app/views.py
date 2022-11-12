@@ -31,14 +31,13 @@ def edit_profile(request, pk):
     
     if request.method == 'POST':
         # Set form instance to be the current user's profile.
-        form = EditProfileForm(request.POST, instance=profile)
+        form = EditProfileForm(request.POST, instance=profile, request=request)
         if form.is_valid():
             profile = form.save(commit=False)
-            profile.user = request.user
             profile.save()
             return HttpResponseRedirect(reverse('user_profile', args=(pk,)))    
     else:
-        form = EditProfileForm(instance=profile)
+        form = EditProfileForm(instance=profile, request=request)
 
     return render(request, 'editProfile.html', {'form': form})
 
