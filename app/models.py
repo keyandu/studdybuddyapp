@@ -76,7 +76,7 @@ class Relationship(models.Model):
 class StudySessionModel (models.Model):
     title = models.CharField(max_length = 200)
     text = models.TextField()
-    class_name = models.CharField(max_length = 200)
+    class_name = models.CharField(max_length = 200, choices =[])
     start_time = models.DateTimeField()
     duration = models.CharField(max_length = 10)
     address = models.CharField(max_length=200)
