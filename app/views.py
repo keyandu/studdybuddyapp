@@ -42,9 +42,6 @@ def edit_profile(request, pk):
     return render(request, 'editProfile.html', {'form': form})
 
 
-
-
-
 class profile(DetailView):
     model= Profile
     template_name ='profile.html'
@@ -114,6 +111,7 @@ class DeleteSessionView(DeleteView):
     model = StudySessionModel
     template_name = 'delete_session.html'
     success_url = reverse_lazy('list')
+
 def get_user_search(request):
     if request.method == "POST":
         query_name = request.POST.get('name')
@@ -124,7 +122,7 @@ def get_user_search(request):
             user = None
         
         user_filter = Profile.objects.filter(Q(user=user) |Q(Enrolled_Courses__subject_field__contains=query_name) 
-            | Q(Age__contains=query_name) |  Q(Major__contains=query_name) | Q(Enrolled_Courses__catalog_number_field__contains=query_name))
+            | Q(Age__contains=query_name) |  Q(Major__contains=query_name) | Q(Enrolled_Courses__catalog_number_field__contains=query_name)).distinct()
         return render(request, 'userSearch.html', {"u_filter": user_filter})
 
 def post_list(request):
