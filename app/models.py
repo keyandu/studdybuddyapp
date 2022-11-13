@@ -27,6 +27,7 @@ class Profile(models.Model):
         ('Second Year', 'Second Year'),
         ('Third Year', 'Third Year'),
         ('Fourth Year', 'Fourth Year'),
+        ('Graduate Student','Graduate Student'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
