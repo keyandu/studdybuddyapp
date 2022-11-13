@@ -42,11 +42,13 @@ def edit_profile(request, pk):
     return render(request, 'editProfile.html', {'form': form})
 
 
-class profile(DetailView):
-    model= Profile
-    template_name ='profile.html'
-    def get_object(self):
-        return self.request.user
+def profile(request, pk=None):
+    if pk:
+        profile = get_object_or_404(Profile, pk=pk)
+    else:
+        profile = request.user.profile
+    args = {'profile': profile}
+    return render(request, 'profile.html', args)
 
 
 def index(request):
@@ -67,7 +69,7 @@ def get_search(request):
     return render(request, 'search.html',{"result":{"n"}})
 
 # Add class to user profile's Enrolled Courses field.
-# Triggered by 'Add' button on Course List page, classinfo.html.
+# Triggered by 'Add' button on Course List page, classinfo.html, search.html.
 def add_class(request):
     profile = request.user.profile
     if request.method == "POST":
@@ -128,6 +130,7 @@ def get_user_search(request):
 def post_list(request):
     formset = StudySessionModel.objects.all()
     return render(request, 'list.html',{'formset':formset})
+
 class StudySessionDetailView(DetailView):
     model = StudySessionModel
     template_name = 'session_details.html'

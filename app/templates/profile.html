@@ -30,14 +30,14 @@
                 </li>
                 <li class="nav-item">
                     {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'user_profile' user.profile.id %}">Profile</a>
+                    <a class="nav-link" href="{% url 'user_profile' user.profile.pk %}">Profile</a>
                     {% else %}
 
                     {% endif %}
                 </li>
                 <li class="nav-item">
                     {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'user_profile' user.profile.id %}">Profile</a>
+                    <a class="nav-link" href="{% url 'user_profile' user.profile.pk %}">Profile</a>
                     {% else %}
 
                     {% endif %}
@@ -91,9 +91,11 @@
 <div class="text-center">
     <!--<h1>My Google OAuth Project </h1>-->
     {% if user.is_authenticated %}
-    <button>
-        <a class="nav-link" href="{% url 'edit_profile_page' user.profile.id%}">Edit Account Information</a>
-    </button>
+        {% if user.profile.pk == profile.pk %}
+            <button>
+                <a class="nav-link" href="{% url 'edit_profile_page' user.profile.pk %}">Edit Account Information</a>
+            </button>
+        {% endif %}
     {% block content %}
     <!--https://www.bootdey.com/snippets/view/Profile-bio#html-->
     <div class="container bootstrap snippets bootdey">
@@ -105,19 +107,19 @@
                             <img class="img-thumbnail md-margin-bottom-10" src="https://www.americanaircraftsales.com/wp-content/uploads/2016/09/no-profile-img.jpg" alt="">
                         </div>
                         <div class="col-md-7">
-                            <h2>{{user.username}}</h2>
-                            <span><strong>Age:</strong> {{user.profile.Age}}</span>
+                            <h2>{{profile.user.username}}</h2>
+                            <span><strong>Age:</strong> {{profile.Age}}</span>
                             <br></br>
-                            <span><strong>Major:</strong> {{user.profile.Major}}</span>
+                            <span><strong>Major:</strong> {{profile.Major}}</span>
                             <br></br>
                             <span><strong>Courses:</strong></span>
-                            {% if user.profile.Enrolled_Courses is not null %}
-                                {% for c in user.profile.Enrolled_Courses.all %}
+                            {% if profile.Enrolled_Courses is not null %}
+                                {% for c in profile.Enrolled_Courses.all %}
                                     <br>{{ c.subject_field }} {{ c.catalog_number_field }}
                                 {% endfor %}
                             {% endif %}
                             <br></br>
-                            <p>{{user.profile.Bio}}</p>
+                            <p>{{profile.Bio}}</p>
 
                         </div>
                     </div>

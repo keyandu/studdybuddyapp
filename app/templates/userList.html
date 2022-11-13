@@ -136,7 +136,7 @@
                 <tbody>
                     {% for i in userList %}
                     <tr>
-                        <td>{{i.user}}</td>
+                        <td><a href="{% url 'user_profile' pk=i.id %}">{{i.user}}</a></td>
                         <td>{{i.Age}}</td>
                         <td>{{i.Major}}</td>
                         {% if i.Enrolled_Courses is not null %}
