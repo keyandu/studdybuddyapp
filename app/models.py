@@ -76,14 +76,16 @@ class Relationship(models.Model):
 class StudySessionModel (models.Model):
     title = models.CharField(max_length = 200)
     text = models.TextField()
-    class_name = models.CharField(max_length = 200)
+    class_name = models.CharField(max_length = 200, choices =[])
     start_time = models.DateTimeField()
     duration = models.CharField(max_length = 10)
     address = models.CharField(max_length=200)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     enroll = models.ManyToManyField(User,related_name='user_enroll')
+
     def __str__(self):
         return self.title+ ' | ' + str(self.author)
+
     def get_absolute_url(self):
         return reverse('list')
 
