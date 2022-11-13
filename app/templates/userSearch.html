@@ -57,26 +57,29 @@
             </thead>
             <tbody>
                 {% for i in u_filter %}
-                <tr>
-                    <td>{{i.user}}</td>
-                    <td>{{i.Age}}</td>
-                    <td>{{i.Major}}</td>
-                    {% if i.Enrolled_Courses is not null %}
-                    <td>
-                        {% for c in i.Enrolled_Courses.all %}
-                        <div>
-                            {{ c.subject_field }} {{ c.catalog_number_field }}
-                        </div>
-                        {% endfor %}
-                    </td>
+                    {% if not user.profile.pk == i.pk %}
+                        <tr>
+                            <td>{{i.user}}</td>
+                            <td>{{i.Age}}</td>
+                            <td>{{i.Major}}</td>
+                            {% if i.Enrolled_Courses is not null %}
+                                    <td>{% for c in i.Enrolled_Courses.all %}
+                                        <div>
+                                            {{ c.subject_field }} {{ c.catalog_number_field }}
+                                        </div>
+                                        {% endfor %}
+                                    </td>
+                            {% endif %}
+                            <td>
+                                <form action="{% url 'follow' %}" method="POST">
+                                    {% csrf_token %}
+                                    <!-- Save other profile id to submit in POST request for Follow button: -->
+                                    <input type="hidden" name="other_profile_id" value="{{i.id}}">
+                                    <button type="submit" name="follow_profile" value=i class="btn btn-info">Follow</button>
+                                </form>
+                            <td>
+                        </tr>
                     {% endif %}
-                    <td>
-                        <form action=" = {%url 'class_add'}" method="POST">
-                            {% csrf_token%}
-                            <button type="submit" ,name="class_id" ,value=i, class="btn btn-info">Add Friend</button>
-                        </form>
-                    <td>
-                </tr>
                 {%endfor%}
             </tbody>
         </table>

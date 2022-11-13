@@ -31,30 +31,29 @@ def edit_profile(request, pk):
     
     if request.method == 'POST':
         # Set form instance to be the current user's profile.
-        form = EditProfileForm(request.POST, instance=profile)
+        form = EditProfileForm(request.POST, instance=profile, request=request)
         if form.is_valid():
             profile = form.save(commit=False)
-            profile.user = request.user
             profile.save()
             return HttpResponseRedirect(reverse('user_profile', args=(pk,)))    
     else:
-        form = EditProfileForm(instance=profile)
+        form = EditProfileForm(instance=profile, request=request)
 
     return render(request, 'editProfile.html', {'form': form})
-
 
 def friendslist(request):
     profile = Profile.objects.get(user=request.user)
     context = {'profile': profile}
     return render(request, 'friendsList.html', context)
 
-
-class profile(DetailView):
-    model = Profile
-    template_name = 'profile.html'
-
-    def get_object(self):
-        return self.request.user
+# Updated profile view to see other users' profiles using pk.
+def profile(request, pk=None):
+    if pk:
+        profile = get_object_or_404(Profile, pk=pk)
+    else:
+        profile = request.user.profile
+    args = {'profile': profile}
+    return render(request, 'profile.html', args)
 
 
 def index(request):
@@ -75,7 +74,7 @@ def get_search(request):
     return render(request, 'search.html',{"result":{"n"}})
 
 # Add class to user profile's Enrolled Courses field.
-# Triggered by 'Add' button on Course List page, classinfo.html.
+# Triggered by 'Add' button on Course List page, classinfo.html, search.html.
 def add_class(request):
     profile = request.user.profile
     if request.method == "POST":
@@ -99,6 +98,16 @@ def add_class(request):
         if not profile.Enrolled_Courses.filter(course_number_field=course_number).exists():
             profile.Enrolled_Courses.add(new_course)
             profile.save()
+    return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
+
+# Add other profile to current user profile's Following list.
+# Triggered by 'Friend' button on buddy page, userList.html, userSearch.html.
+def follow(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        other_profile_id = request.POST.get('other_profile_id')
+        profile.Following.add(other_profile_id)
+        profile.save()
     return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
 
 
@@ -156,7 +165,7 @@ def get_user_search(request):
             user = None
         
         user_filter = Profile.objects.filter(Q(user=user) |Q(Enrolled_Courses__subject_field__contains=query_name) 
-            | Q(Age__contains=query_name) |  Q(Major__contains=query_name) | Q(Enrolled_Courses__catalog_number_field__contains=query_name))
+            | Q(Age__contains=query_name) |  Q(Major__contains=query_name) | Q(Enrolled_Courses__catalog_number_field__contains=query_name)).distinct()
         return render(request, 'userSearch.html', {"u_filter": user_filter})
 
 def post_list(request):
