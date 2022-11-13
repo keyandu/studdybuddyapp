@@ -5,9 +5,32 @@ from django import forms
 from django.contrib.auth.models import User
 
 class EditProfileForm(ModelForm):
+    # Grab profile from request to filter course options by enrolled courses:
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+        self.fields['Enrolled_Courses'].queryset = Class.objects.filter(profile=self.request.user.profile)
+
     class Meta:
         model = Profile
         fields = ['Age', 'Major', 'Enrolled_Courses', 'Bio']
+
+    # Set Enrolled_Courses to NOT be required - allow to save profile with no courses.
+    Enrolled_Courses = forms.ModelMultipleChoiceField(
+        queryset=None,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+
+    def save(self, commit=True):
+       profile = super(EditProfileForm, self).save(commit=False)
+       profile.user = self.request.user
+       # Make sure to save many to many field.
+       self.save_m2m()
+       if commit:
+           profile.save()
+       return profile
+    
 
 
 class SignupProfileForm(SignupForm):

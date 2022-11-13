@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'Chat',
+
     
 ]
 
@@ -168,8 +170,8 @@ SOCIALACCOUNT_PROVIDERS = {
                 ],
                 'AUTH_PARAMS': {
                     'access_type': 'offline',
-                    #'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
-                      'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
+                    'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
+                    #'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
 
 
                 }

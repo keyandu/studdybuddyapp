@@ -27,6 +27,7 @@ class Profile(models.Model):
         ('Second Year', 'Second Year'),
         ('Third Year', 'Third Year'),
         ('Fourth Year', 'Fourth Year'),
+        ('Graduate Student','Graduate Student'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -35,6 +36,8 @@ class Profile(models.Model):
     Enrolled_Courses = models.ManyToManyField(Class, blank=True)
     Major = models.TextField()
     Bio = models.TextField(blank=True)
+
+    Following = models.ManyToManyField('self', blank=True)
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
