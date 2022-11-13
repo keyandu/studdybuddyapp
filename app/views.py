@@ -41,7 +41,7 @@ def edit_profile(request, pk):
 
     return render(request, 'editProfile.html', {'form': form})
 
-
+# Updated profile view to see other users' profiles using pk.
 def profile(request, pk=None):
     if pk:
         profile = get_object_or_404(Profile, pk=pk)
