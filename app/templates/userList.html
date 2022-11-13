@@ -135,25 +135,27 @@
                 </thead>
                 <tbody>
                     {% for i in userList %}
-                    <tr>
-                        <td><a href="{% url 'user_profile' pk=i.id %}">{{i.user}}</a></td>
-                        <td>{{i.Age}}</td>
-                        <td>{{i.Major}}</td>
-                        {% if i.Enrolled_Courses is not null %}
-                            <td>{% for c in i.Enrolled_Courses.all %}
-                                <div>
-                                    {{ c.subject_field }} {{ c.catalog_number_field }}
-                                </div>
-                                {% endfor %}
-                            </td>
+                        {% if not user.profile.pk == i.pk %}
+                            <tr>
+                                <td><a href="{% url 'user_profile' pk=i.id %}">{{i.user}}</a></td>
+                                <td>{{i.Age}}</td>
+                                <td>{{i.Major}}</td>
+                                {% if i.Enrolled_Courses is not null %}
+                                    <td>{% for c in i.Enrolled_Courses.all %}
+                                        <div>
+                                            {{ c.subject_field }} {{ c.catalog_number_field }}
+                                        </div>
+                                        {% endfor %}
+                                    </td>
+                                {% endif %}
+                                <td>
+                                    <form action=" = {%url 'class_add'}" method="POST">
+                                        {% csrf_token%}
+                                        <button type="submit" ,name="class_id" ,value=i, class="btn btn-info">Send Friend Request</button>
+                                    </form>
+                                <td>
+                            </tr>
                         {% endif %}
-                        <td>
-                            <form action=" = {%url 'class_add'}" method="POST">
-                                {% csrf_token%}
-                                <button type="submit" ,name="class_id" ,value=i, class="btn btn-info">Send Friend Request</button>
-                            </form>
-                        <td>
-                    </tr>
                     {%endfor%}
                 </tbody>
             </table>
