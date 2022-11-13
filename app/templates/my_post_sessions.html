@@ -6,12 +6,11 @@
 <h1>Sessions I Created</h1>
 {% if m_posts %}
 <ul>
-    {% for session in m_posts %}
+    {% for form in m_posts %}
     <li>
-        <a href="{% url 'post_detail' session.pk %}">{{ session.title }}</a> - {{session.author}}<br />
-        {{session.start_time}} - {{session.duration}}
+        <a href="{% url 'post_detail' form.pk %}">{{ form.title }}</a> - {{form.class_name}}<br />
+        {{form.start_time}} - {{form.duration}}
     </li>
-
     {% endfor %}
 </ul>
     {% else %}

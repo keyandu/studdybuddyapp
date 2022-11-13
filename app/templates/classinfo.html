@@ -3,8 +3,7 @@
 {% load socialaccount %}
 
 {% block content %}
-<br>
-
+<br />
 <body>
 
     <div class="container">
@@ -15,11 +14,29 @@
             <input type="text" name="name">
             <input type="submit" name="submit" value="Search">
         </form>
+        <!--  <br>-->
+        <!--  <ul class="list-group" id="myList">-->
+        <!--    <li class="list-group-item">{{i.subject}} {{i.catalog_number}}</li>-->
+        <!--    <li class="list-group-item">{{i.description}}</li>-->
+        <!--    <li class="list-group-item">{{i.course_section}}</li>-->
+        <!--    <li class="list-group-item">{{i.instructor_name}}</li>-->
+        <!--  </ul>-->
     </div>
 
-
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myList li").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 
 </body>
+</html>
+
 
 <body>
 
@@ -41,8 +58,7 @@
                     <td>{{i.description}}</td>
                     <td>{{i.course_section}}</td>
                     <td>{{i.instructor.name}}</td>
-                    <td>
-                        <form action="{% url 'add_class' %}" method="POST">
+                    <td><form action="{% url 'add_class' %}" method="POST">
                             {% csrf_token %}
                             <!-- Save course info to submit in POST request for Add button: -->
                             <input type="hidden" name="subject" value="{{i.subject}}">
@@ -61,5 +77,4 @@
 
 </body>
 </html>
-
 {% endblock %}

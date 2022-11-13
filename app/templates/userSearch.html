@@ -61,6 +61,7 @@
                     <td>{{i.user}}</td>
                     <td>{{i.Age}}</td>
                     <td>{{i.Major}}</td>
+                    {% if i.Enrolled_Courses is not null %}
                     <td>
                         {% for c in i.Enrolled_Courses.all %}
                         <div>
@@ -68,6 +69,7 @@
                         </div>
                         {% endfor %}
                     </td>
+                    {% endif %}
                     <td>
                         <form action=" = {%url 'class_add'}" method="POST">
                             {% csrf_token%}

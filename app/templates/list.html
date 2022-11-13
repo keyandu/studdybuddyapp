@@ -6,12 +6,13 @@
 <h1>Study Session Posts</h1>
 {% if formset %}
 <ul>
-
-    {% for form in formset %}
+    {% for forms in formset %}
+    {% for form in forms %}
     <li>
         <a href="{% url 'post_detail' form.pk %}">{{ form.title }}</a> - {{form.class_name}}<br />
         {{form.start_time}} - {{form.duration}}
     </li>
+    {% endfor %}
     {% endfor %}
 </ul>
     {% else %}

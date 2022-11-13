@@ -102,20 +102,6 @@ def add_class(request):
     return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
 
 
-#class AddSessionView(CreateView):
-#    model = StudySessionModel
-#    form_class = StudySessionForm
-#    template_name = 'study_session_post.html'
-#
-#     try:
-#         profile = request.user.profile
-#     except Profile.DoesNotExist:
-#         # if user has no profile, create one
-#         profile = Profile(user=request.user)
-#
-#     def get_object(self):
-#         return self.request.user
-    #fields = '__all__'
 
 def AddSessionView(request):
 
@@ -152,12 +138,14 @@ class UpadateSessionView(UpdateView):
     model = StudySessionModel
     form_class = StudySessionEditForm
     template_name = 'editStudySession.html'
+
     #fields = ['title','text','start_time','address','class_name']
 
 class DeleteSessionView(DeleteView):
     model = StudySessionModel
     template_name = 'delete_session.html'
     success_url = reverse_lazy('list')
+
 def get_user_search(request):
     if request.method == "POST":
         query_name = request.POST.get('name')
@@ -172,8 +160,17 @@ def get_user_search(request):
         return render(request, 'userSearch.html', {"u_filter": user_filter})
 
 def post_list(request):
-    formset = StudySessionModel.objects.all()
-    return render(request, 'list.html',{'formset':formset})
+    profile = request.user.profile
+    set = list(profile.Enrolled_Courses.all())
+    result = []
+
+    for i in set:
+        a = i.subject_field + i.catalog_number_field
+        result.append(a)
+    formset = []
+    for i in result:
+        formset.append(StudySessionModel.objects.filter(class_name=i))
+    return render(request, 'list.html', {'formset': formset})
 
 
 class StudySessionDetailView(DetailView):
@@ -191,8 +188,14 @@ def EnrollView(request,pk):
     return HttpResponseRedirect(reverse('post_detail',args=[str(pk)]))
     
 def EnrolledSessionsView(request):
-    user = User.objects.get(username=request.user.username)
-    enrolled = user.user_enroll.all()
+    try:
+        user = User.objects.get(username=request.user.username)
+    except User.DoesNotExist:
+        user = None
+    if user:
+        enrolled = user.user_enroll.all()
+    else: 
+        enrolled = []
     return render(request, 'index.html', {"enroll":enrolled})
 
 def ListMyPostSessions(request):
