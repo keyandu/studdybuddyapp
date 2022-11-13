@@ -154,6 +154,7 @@ class UpadateSessionView(UpdateView):
     model = StudySessionModel
     form_class = StudySessionEditForm
     template_name = 'editStudySession.html'
+
     #fields = ['title','text','start_time','address','class_name']
 
 class DeleteSessionView(DeleteView):
@@ -174,8 +175,19 @@ def get_user_search(request):
         return render(request, 'userSearch.html', {"u_filter": user_filter})
 
 def post_list(request):
-    formset = StudySessionModel.objects.all()
-    return render(request, 'list.html',{'formset':formset})
+    profile = request.user.profile
+    set = list(profile.Enrolled_Courses.all())
+    result = []
+
+    for i in set:
+        a = i.subject_field + i.catalog_number_field
+        result.append(a)
+    formset = []
+    for i in result:
+        formset.append(StudySessionModel.objects.filter(class_name=i))
+    return render(request, 'list.html', {'formset': formset})
+
+
 class StudySessionDetailView(DetailView):
     model = StudySessionModel
     template_name = 'session_details.html'
