@@ -120,7 +120,13 @@
                             {% endif %}
                             <br></br>
                             <p>{{profile.Bio}}</p>
-
+                            
+                            <span><strong>Following:</strong></span>
+                            {% if profile.Following is not null %}
+                                {% for c in profile.Following.all %}
+                                    <br>{{ c }}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -95,6 +95,16 @@ def add_class(request):
             profile.save()
     return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
 
+# Add other profile to current user profile's Following list.
+# Triggered by 'Friend' button on buddy page, userList.html, userSearch.html.
+def follow(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        other_profile_id = request.POST.get('other_profile_id')
+        profile.Following.add(other_profile_id)
+        profile.save()
+    return HttpResponseRedirect(reverse('user_profile', args=(profile.id,)))
+
 
 class AddSessionView(CreateView):
     model = StudySessionModel

@@ -149,9 +149,11 @@
                                     </td>
                                 {% endif %}
                                 <td>
-                                    <form action=" = {%url 'class_add'}" method="POST">
-                                        {% csrf_token%}
-                                        <button type="submit" ,name="class_id" ,value=i, class="btn btn-info">Send Friend Request</button>
+                                    <form action="{% url 'follow' %}" method="POST">
+                                        {% csrf_token %}
+                                        <!-- Save other profile id to submit in POST request for Follow button: -->
+                                        <input type="hidden" name="other_profile_id" value="{{i.id}}">
+                                        <button type="submit" name="follow_profile" value=i class="btn btn-info">Follow</button>
                                     </form>
                                 <td>
                             </tr>

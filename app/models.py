@@ -37,6 +37,8 @@ class Profile(models.Model):
     Major = models.TextField()
     Bio = models.TextField(blank=True)
 
+    Following = models.ManyToManyField('self', blank=True)
+
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     @receiver(post_save, sender=User)
