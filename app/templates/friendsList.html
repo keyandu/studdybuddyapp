@@ -443,7 +443,20 @@
                                 {% for friend in profile.get_friends %}
                                 <ul class="friend-list clearfix">
                                     <li>
+                                        {% if profile.Enrolled_Courses is not null %}
+                                {% for c in profile.Enrolled_Courses.all %}
+                                    <br>{{ c.subject_field }} {{ c.catalog_number_field }}
+                                {% endfor %}
+                            {% endif %}
+                            <br></br>
+                            <p>{{profile.Bio}}</p>
 
+                            <span><strong>Following:</strong></span>
+                            {% if profile.Following is not null %}
+                                {% for c in profile.Following.all %}
+                                    <br>{{ c }}
+                                {% endfor %}
+                            {% endif %}
                                         <a href="#">
                                             <div class="friend-img"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" /></div>
                                             <div class="friend-info">

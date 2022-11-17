@@ -19,4 +19,5 @@ urlpatterns = [
     path('my_post_session/',views.ListMyPostSessions, name = "my_post_session"),
     path('user_list/', views.user_list,name = 'userList'),
     path('userSearch/', views.get_user_search,name = "userSearch"),
+    path('<int:pk>/profile/', views.profile, name='user_profile'),
 ]

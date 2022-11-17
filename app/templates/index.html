@@ -3,21 +3,17 @@
 {% load socialaccount %}
 
 {% block content %}
-<div class="p-5 text-center bg-image" style="background-image: url({% static 'index/images/monkey.jpg' %})">
+<div class="p-5 text-center bg-image" style="background-image: url()">
     <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
         <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white">
                 <h1 class="mb-3">Welcome to StudyBuddy, {{ user.username }}</h1>
                 <h5 class="mb-4">The #1 Resource to Find New Study Sessions</h5>
                 {% if user.is_authenticated %}
-                <a class="btn btn-outline-light btn-lg m-2"
-                   href="{% url 'user_profile' user.profile.id %}"
-                   role="button">Profile</a>
+
                 {% endif %}
                 {% if user.is_authenticated %}
-                <a class="btn btn-outline-light btn-lg m-2"
-                   href="/"
-                   role="button">Find a Buddy</a>
+
                 {% else %}
                 <a class="btn btn-outline-light btn-lg m-2"
                    href="{% provider_login_url 'google' %}"
@@ -47,17 +43,5 @@
         </div>
     </div>
 
-    <html>
-    <nav class="navbar fixed-bottom navbar-dark bg-dark">
-        <body>
-            <footer>
-                <div class="text-center">
-                    <!--  <p>Study Buddy: studybuddy@gmail.com<br>-->
-                    <!--  <a>Website in Progress</a>-->
-                    <div class="card-footer text-muted">Copyright 2022 StudyBuddy, LLC. All Rights Reserved</div>
-                </div>
-            </footer>
-        </body>
-    </nav>
-</html>
+
     {% endblock %}
