@@ -46,7 +46,7 @@
 
     <div class="container">
         <!--  <h2>Course List</h2>-->
-        <table class="table table-striped">
+        <table class="table table-striped, text-white">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -57,29 +57,30 @@
             </thead>
             <tbody>
                 {% for i in u_filter %}
-                    {% if not user.profile.pk == i.pk %}
-                        <tr>
-                            <td>{{i.user}}</td>
-                            <td>{{i.Age}}</td>
-                            <td>{{i.Major}}</td>
-                            {% if i.Enrolled_Courses is not null %}
-                                    <td>{% for c in i.Enrolled_Courses.all %}
-                                        <div>
-                                            {{ c.subject_field }} {{ c.catalog_number_field }}
-                                        </div>
-                                        {% endfor %}
-                                    </td>
-                            {% endif %}
-                            <td>
-                                <form action="{% url 'follow' %}" method="POST">
-                                    {% csrf_token %}
-                                    <!-- Save other profile id to submit in POST request for Follow button: -->
-                                    <input type="hidden" name="other_profile_id" value="{{i.id}}">
-                                    <button type="submit" name="follow_profile" value=i class="btn btn-info">Follow</button>
-                                </form>
-                            <td>
-                        </tr>
+                {% if not user.profile.pk == i.pk %}
+                <tr>
+                    <td>{{i.user}}</td>
+                    <td>{{i.Age}}</td>
+                    <td>{{i.Major}}</td>
+                    {% if i.Enrolled_Courses is not null %}
+                    <td>
+                        {% for c in i.Enrolled_Courses.all %}
+                        <div>
+                            {{ c.subject_field }} {{ c.catalog_number_field }}
+                        </div>
+                        {% endfor %}
+                    </td>
                     {% endif %}
+                    <td>
+                        <form action="{% url 'follow' %}" method="POST">
+                            {% csrf_token %}
+                            <!-- Save other profile id to submit in POST request for Follow button: -->
+                            <input type="hidden" name="other_profile_id" value="{{i.id}}">
+                            <button type="submit" name="follow_profile" value=i class="btn btn-info">Follow</button>
+                        </form>
+                    <td>
+                </tr>
+                {% endif %}
                 {%endfor%}
             </tbody>
         </table>
