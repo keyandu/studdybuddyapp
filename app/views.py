@@ -13,7 +13,7 @@ import requests
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from .models import Profile, StudySessionModel, Class
+from .models import Profile, StudySessionModel, Class, Discussions
 from .forms import EditProfileForm, StudySessionForm, StudySessionEditForm
 from django.views.generic import DetailView
 from django.urls import reverse
@@ -189,6 +189,7 @@ class StudySessionDetailView(DetailView):
         context = super(StudySessionDetailView, self).get_context_data(**kwargs)
         studysession = get_object_or_404(StudySessionModel,id=self.kwargs['pk'])
         context["enroll_list"] = studysession.enroll.all()
+        context["replies"] = Discussions.objects.filter(post=studysession)
         return context
         
 def EnrollView(request,pk):
@@ -216,6 +217,16 @@ def user_list(request):
     userList = Profile.objects.all()
     context = {'userList': userList}
     return render(request, 'userList.html', context)
+
+
+def discussion(request, pk):
+    study_session = get_object_or_404(StudySessionModel, id=pk)
+    if request.method=="POST":
+        user = request.user
+        desc = request.POST.get('desc','') #html id
+        reply = Discussions(author = user, text = desc, post=study_session)
+        reply.save()
+    return HttpResponseRedirect(reverse('post_detail',args=[str(pk)]))
 
 
 #https://dev.to/earthcomfy/django-user-profile-3hik
