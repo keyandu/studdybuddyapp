@@ -20,4 +20,5 @@ urlpatterns = [
     path('user_list/', views.user_list,name = 'userList'),
     path('userSearch/', views.get_user_search,name = "userSearch"),
     path('<int:pk>/profile/', views.profile, name='user_profile'),
+    path('reply/<int:pk>', views.discussion, name="discuss"),
 ]
