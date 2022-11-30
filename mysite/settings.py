@@ -25,7 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lvzuc)n7vre4v-34wqkz0((pg9u2bfh&daliipv9r-ep4gr7(^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+
+SECURE_SSL_REDIRECT = True
+
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','study-buddy-app2022.herokuapp.com','testserver']
 
@@ -87,6 +91,9 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
       #
 ]
+#change
+
+CSRF_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'mysite.urls'
 
