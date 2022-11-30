@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-lvzuc)n7vre4v-34wqkz0((pg9u2bfh&daliipv9r-ep4gr7(^
 DEBUG = False
 
 
-SECURE_SSL_REDIRECT = True
+
 
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','study-buddy-app2022.herokuapp.com','testserver']
