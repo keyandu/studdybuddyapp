@@ -157,7 +157,7 @@ class DeleteSessionView(DeleteView):
 
 def get_user_search(request):
     if request.method == "POST":
-        query_name = request.POST.get('name')
+        query_name = request.POST.get('name1')
         # user = get_object_or_404(User, username=query_name)
         try:
             user = User.objects.get(username=query_name)
