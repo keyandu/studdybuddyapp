@@ -93,7 +93,7 @@ MIDDLEWARE = [
 ]
 #change
 
-CSRF_COOKIE_SECURE = True
+
 
 ROOT_URLCONF = 'mysite.urls'
 
