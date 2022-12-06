@@ -1,18 +1,8 @@
-
-from re import template
-from sre_constants import SUCCESS
 from django.contrib.auth.models import User
-from django.urls import resolve
 from django.http import HttpResponse
-from http.client import responses
-from urllib import response
-from django.shortcuts import render
 from django.views.generic import DetailView, CreateView, UpdateView,DeleteView
-# from .models import UserClass
 import requests
 from django.http import HttpResponseRedirect
-from django.views import generic
-from django.contrib.auth.decorators import login_required
 from .models import Profile, StudySessionModel, Class, Discussions
 from .forms import EditProfileForm, StudySessionForm, StudySessionEditForm
 from django.views.generic import DetailView
@@ -20,7 +10,11 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.urls import reverse_lazy
-
+from django.contrib import messages
+from django.shortcuts import render, redirect
+def signup_redirect(request):
+    messages.error(request, "Something wrong here, it may be that you already have account!")
+    return redirect("homepage")
 def edit_profile(request, pk):
     # Check if the user has a profile:
     try:

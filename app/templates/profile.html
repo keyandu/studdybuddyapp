@@ -3,6 +3,21 @@
 {% load socialaccount %}
 
 <style>
+.header-dark .navbar .action-button, .header-dark .navbar .action-button:active {
+  background:#208f8f;
+  border-radius:20px;
+  font-size:inherit;
+  color:#fff;
+  box-shadow:none;
+  border:none;
+  text-shadow:none;
+  padding:.5rem .8rem;
+  transition:background-color 0.25s;
+}
+
+.header-dark .navbar .action-button:hover {
+  background:#269d9d;
+}
 
 .profile-head {
     transform: translateY(5rem)
@@ -73,6 +88,7 @@ body {
     {% if user.profile.pk == profile.pk %}
     <div class="profile mr-3">
         <a href="{% url 'edit_profile_page' user.profile.pk %}" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
+        <a class="btn btn-light action-button" role="button" href="{% url 'account_logout' %}"> logout
     </div>
     {% endif %}
 
@@ -138,7 +154,8 @@ body {
     {% if user.is_authenticated %}
         {% if user.profile.pk == profile.pk %}
             <button>
-                <a class="nav-link" href="{% url 'edit_profile_page' user.profile.pk %}">Edit Account Information</a>
+
+                <a class="btn btn-light action-button" role="button" href="{% url 'edit_profile_page' user.profile.pk %}">Edit Account Information</a>
             </button>
         {% endif %}
     <!--https://www.bootdey.com/snippets/view/Profile-bio#html-->
@@ -168,7 +185,8 @@ body {
                             <span><strong>Following:</strong></span>
                             {% if profile.Following is not null %}
                                 {% for c in profile.Following.all %}
-                                    <br>{{ c }}
+                                    <br></br>
+                                    <a href="{% url 'user_profile' pk=c.id %}">{{c.user}}</a>
                                 {% endfor %}
                             {% endif %}
                         </div>

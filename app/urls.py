@@ -21,4 +21,5 @@ urlpatterns = [
     path('userSearch/', views.get_user_search,name = "userSearch"),
     path('<int:pk>/profile/', views.profile, name='user_profile'),
     path('reply/<int:pk>', views.discussion, name="discuss"),
+    path('social/signup/', views.signup_redirect, name='signup_redirect'),
 ]
