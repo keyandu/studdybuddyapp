@@ -166,10 +166,12 @@ body {
             <div class="p-4 rounded shadow-sm bg-light">
                 {% if profile.Enrolled_Courses is not null %}
                                 {% for c in profile.Enrolled_Courses.all %}
-                                    <br>{{ c.subject_field }} {{ c.catalog_number_field }}
+
+                                        <p><h5>{{ c.subject_field }} {{ c.catalog_number_field }}</h5></p>
+
                                 {% endfor %}
                             {% endif %}
-                            <br></br>
+
 
 
 
