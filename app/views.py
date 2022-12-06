@@ -151,7 +151,7 @@ class DeleteSessionView(DeleteView):
 
 def get_user_search(request):
     if request.method == "POST":
-        query_name = request.POST.get('name1')
+        query_name = request.POST.get('name')
         # user = get_object_or_404(User, username=query_name)
         try:
             user = User.objects.get(username=query_name)
@@ -161,6 +161,7 @@ def get_user_search(request):
         user_filter = Profile.objects.filter(Q(user=user) |Q(Enrolled_Courses__subject_field__contains=query_name) 
             | Q(Age__contains=query_name) |  Q(Major__contains=query_name) | Q(Enrolled_Courses__catalog_number_field__contains=query_name)).distinct()
         return render(request, 'userSearch.html', {"u_filter": user_filter})
+
 
 def post_list(request):
     profile = request.user.profile

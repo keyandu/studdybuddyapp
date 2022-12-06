@@ -4,9 +4,9 @@
 
 {% block content %}
 
-<br>
+<br />
 
-<body>
+<body style="background-image: url(../static/index/images/jungle.jpeg) ">
 
     <div class="container">
         {% if  u_filter.count != 0 %}
@@ -16,7 +16,7 @@
         {%endif%}
         <form action="{% url 'userSearch' %}" method="POST">
             {% csrf_token %}
-            <input type="text" name="name1">
+            <input type="text" name="name">
             <input type="submit" name="submit" value="Search">
         </form>
         <!--  <br>-->
@@ -39,54 +39,79 @@
         });
     </script>
 
-</body>
-</html>
 
-<body>
 
-    <div class="container">
-        <!--  <h2>Course List</h2>-->
-        <table class="table table-striped, text-white">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Major</th>
-                    <th>Enrolled Courses</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in u_filter %}
-                {% if not user.profile.pk == i.pk %}
-                <tr>
-                    <td>{{i.user}}</td>
-                    <td>{{i.Age}}</td>
-                    <td>{{i.Major}}</td>
-                    {% if i.Enrolled_Courses is not null %}
-                    <td>
-                        {% for c in i.Enrolled_Courses.all %}
-                        <div>
-                            {{ c.subject_field }} {{ c.catalog_number_field }}
+    <div class="container ">
+
+        <div class="row">
+            {% for i in u_filter %}
+            {% if not user.profile.pk == i.pk %}
+            {% if forloop.counter|divisibleby:4 %}
+
+            {% else %}
+            <div class="col-sm-4">
+                <div class="card" style=" height: 500px; width:300px">
+                    <img class="card-img-top" src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title text-dark">{{i.user}}</h4>
+                        <h6 class="card-subtitle mb-1 text-muted"> Year: {{i.Age}}</h6>
+                        <h6 class="card-subtitle mb-1 text-muted"> Major: {{i.Major}}</h6>
+                        <h6 class="card-subtitle mb-1 text-muted">
+                            Class Enrolled:
+                            {% if i.Enrolled_Courses is not null %}
+
+                            {% for c in i.Enrolled_Courses.all %}
+
+                            {{ c.subject_field }} {{ c.catalog_number_field }} &nbsp;
+
+
+                            {% endfor %}
+
+                            {% endif %}
+                        </h6>
+                        <p class="card-text text-muted">
+
+                        </p>
+                        <div class=" row" ">
+                            <div class="col-sm-6">
+                                <a href="{% url 'user_profile' pk=i.id %}" class="btn btn-primary" style="width:100px">
+                                    See Profile
+                                </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <form action="{% url 'follow' %}" method="POST">
+                                    {% csrf_token %}
+
+                                    <input type="hidden" name="other_profile_id" value="{{i.id}}">
+                                    <button type="submit" name="follow_profile" value=i class="btn btn-primary" style="width:100px">Follow</button>
+                                </form>
+
+                            </div>
+
+                            <!--<a href="{% url 'user_profile' pk=i.id %}" class="btn btn-primary">
+                        See Profile
+                    </a>-->
+
                         </div>
-                        {% endfor %}
-                    </td>
-                    {% endif %}
-                    <td>
-                        <form action="{% url 'follow' %}" method="POST">
-                            {% csrf_token %}
-                            <!-- Save other profile id to submit in POST request for Follow button: -->
-                            <input type="hidden" name="other_profile_id" value="{{i.id}}">
-                            <button type="submit" name="follow_profile" value=i class="btn btn-info">Follow</button>
-                        </form>
-                    <td>
-                </tr>
-                {% endif %}
-                {%endfor%}
-            </tbody>
-        </table>
-    </div>
+
+                    </div>
+                </div> <hr />
+
+
+            </div>
+
+            {% endif %}
+
+
+
+
+            {%endif%}
+
+            {%endfor%}
+        </div>
+
 
 </body>
-</html>
+
 
 {% endblock %}
