@@ -14,3 +14,5 @@ django-allauth
 dj-config-url~=0.1.1
 
 whitenoise
+
+django-ckeditor
