@@ -25,11 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lvzuc)n7vre4v-34wqkz0((pg9u2bfh&daliipv9r-ep4gr7(^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-
-
-
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','study-buddy-app2022.herokuapp.com','testserver']
 
@@ -50,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'Chat',
+    'ckeditor'
 
     
 ]
@@ -91,9 +88,6 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
       #
 ]
-#change
-
-
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -161,7 +155,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
@@ -177,8 +171,8 @@ SOCIALACCOUNT_PROVIDERS = {
                 ],
                 'AUTH_PARAMS': {
                     'access_type': 'offline',
-                    # 'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
-                     'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
+                    #'redirect_uri': 'http://study-buddy-app2022.herokuapp.com/accounts/google/login/callback/',
+                    'redirect_uri': 'http://127.0.0.1:8000/accounts/google/login/callback/',
 
 
                 }
