@@ -2,45 +2,105 @@
 {% load static %}
 {% load socialaccount %}
 <style>
-body{
-    margin-top:20px;
-    background:#FAFAFA;
-}
-/*==================================================
-  Nearby People CSS
-  ==================================================*/
+    body {
+        margin-top: 20px;
+        background: #FAFAFA;
+    }
+    /*==================================================
+    Nearby People CSS
+    ==================================================*/
 
-.people-nearby .google-maps{
-  background: #f8f8f8;
-  border-radius: 4px;
-  border: 1px solid #f1f2f2;
-  padding: 20px;
-  margin-bottom: 20px;
-}
+    .people-nearby .google-maps {
+        background: #f8f8f8;
+        border-radius: 4px;
+        border: 1px solid #f1f2f2;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
 
-.people-nearby .google-maps .map{
-  height: 300px;
-  width: 100%;
-  border: none;
-}
+        .people-nearby .google-maps .map {
+            height: 300px;
+            width: 100%;
+            border: none;
+        }
 
-.people-nearby .nearby-user{
-  padding: 20px 0;
-  border-top: 1px solid #f1f2f2;
-  border-bottom: 1px solid #f1f2f2;
-  margin-bottom: 20px;
-}
+    .people-nearby .nearby-user {
+        padding: 20px 0;
+        border-top: 1px solid #f1f2f2;
+        border-bottom: 1px solid #f1f2f2;
+        margin-bottom: 20px;
+    }
 
-img.profile-photo-lg{
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-}
+    img.profile-photo-lg {
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+    }
 </style>
 {% block content %}
-<h1>Study Session Posts</h1>
-{% if formset %}
-<ul>
+<h9 class="nav justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'list' %}">Class</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'Friend' %}">Friend</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'my_post_session' %}">Your Post</a>
+    </li>
+</h9>
+<h1 style="text-align:center">Study Session Posts</h1>
+<a style="text-align:center; margin-left:470px" href="{% url 'post' %}"> Post your study session</a>
+<br />
+<br />
+    {% if formset %}
+        {% for forms in formset %}
+        {% for studysessionmodel in forms %}
+<div class="card" style="color:black; margin-left : 150px; vertical-align: middle; align-content: center; width: 800px; height: 500px ">
+    <div class="card-body" style="margin-top:40px;margin-left : 150px; color:black">
+        <h4>{{studysessionmodel.title}}</h4>
+       
+        <p class="card-text">
+            <small>
+                By: {{studysessionmodel.author}}
+            </small>
+            <br />
+
+            <hr>
+            {{studysessionmodel.text | safe}}
+            
+        </p>
+        <div class="" style="margin-top:180px">
+            When: {{studysessionmodel.start_time}}
+
+            <br />
+            How long: {{studysessionmodel.duration}}
+            <br />
+            Where: {{studysessionmodel.address}}
+            <br />
+        </div>
+        <div class="container">
+            <div class="row" style="margin-top: 20px; margin-left: 320px; ">
+                {% endif %}
+                {% if user.id == studysessionmodel.author.id%}
+                <form action="{% url 'edit_session' studysessionmodel.pk%}" method="POST" style="margin-left: 20px; ">
+                    {% csrf_token%}
+                    <button type="submit" , name="edit_studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Edit </button>
+                </form>
+                <form action="{% url 'delete_session' studysessionmodel.pk%}" method="POST" style="margin-left: 20px; ">
+                    {% csrf_token%}
+                    <button type="submit" , name="delete_studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Delete </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+        {% endfor %}
+        {% endfor %}
+
+<!--<ul>
     {% for forms in formset %}
     {% for form in forms %}
     <li>
@@ -49,7 +109,7 @@ img.profile-photo-lg{
     </li>
     {% endfor %}
     {% endfor %}
-</ul>
+</ul>-->
     {% else %}
 <p>No posts are available.</p>
     {% endif %}
@@ -57,4 +117,4 @@ img.profile-photo-lg{
     <link rel="stylesheet" href="{% static 'index/style.css' %}">
     <hr>
 </body>
-{% endblock %}
+    {% endblock %}

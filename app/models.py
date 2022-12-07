@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.forms import UserChangeForm
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 #
 # # Create your models here.
@@ -78,7 +79,8 @@ class Relationship(models.Model):
 
 class StudySessionModel (models.Model):
     title = models.CharField(max_length = 200)
-    text = models.TextField()
+    #text = models.TextField()
+    text = RichTextField(blank = True, null=True)
     class_name = models.CharField(max_length = 200, choices =[])
     start_time = models.DateTimeField()
     duration = models.CharField(max_length = 10)

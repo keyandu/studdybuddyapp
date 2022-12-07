@@ -121,79 +121,100 @@ body {
     {% endif %}
 
     <center>
-<div class="row py-5 px-50">
-    <div class="col-md-5 mx-auto">
-        <!-- Profile widget -->
-        <div class="bg-white shadow rounded overflow-hidden">
+        <div class="row py-5">
+            <div class="col-sm-8">
+                <!-- Profile widget -->
+                <div class="bg-white shadow rounded overflow-hidden">
+                    <br></br>
+                    <img src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" alt="" width="150"
+                         height="150">
+
+                    <div class="px-4 pt-0 pb-4 cover">
+                        <div class="">
+
+                            <h4 class="mt-0 mb-0">{{profile.user.username}}</h4>
+
+
+
+
+                        </div>
+                    </div>
+                    <p class="">
+                        <i class="mt-0 mb-0"></i>{{profile.Age}}
+                    </p>
+
+                    <p class="">
+                        <i class="mt-0 mb-0"></i>{{profile.Major}}
+                    </p>
+
+
+                    <div class="py-4 px-4">
+                        <div class="">
+                            <h5 class="mb-0">Bio</h5>
+                        </div>
+
+                        <div class="p-4 rounded shadow-sm bg-light">
+                            <p>{{profile.Bio}}</p>
+
+
+
+                        </div>
+                    </div>
+                    <div class="py-4 px-4">
+                        <div class="">
+                            <h5 class="mb-0">Enrolled Courses</h5>
+                        </div>
+
+                        <div class="p-4 rounded shadow-sm bg-light">
+                            {% if profile.Enrolled_Courses is not null %}
+                            {% for c in profile.Enrolled_Courses.all %}
+                            <br>{{ c.subject_field }} {{ c.catalog_number_field }}
+                            {% endfor %}
+                            {% endif %}
                             <br></br>
-    <img src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" alt="" width="150"
-     height="150">
-
-            <div class="px-4 pt-0 pb-4 cover">
-                <div class="">
-
-                    <h4 class="mt-0 mb-0">{{profile.user.username}}</h4>
 
 
 
+                        </div>
+                    </div>
 
                 </div>
             </div>
-            <p class="">
-                            <i class="mt-0 mb-0"></i>{{profile.Age}}</p>
-
-            <p class="">
-                            <i class="mt-0 mb-0"></i>{{profile.Major}}</p>
-
-
-            <div class="py-4 px-4"> <div class="d-flex align-items-center justify-content-between mb-3">
-                <h5 class="mb-0">Bio</h5></div>
-
-            <div class="p-4 rounded shadow-sm bg-light">
-                <p><h5>{{profile.Bio}}</h5></p>
-
-
-
-                </div> </div>
-        <div class="py-4 px-4"> <div class="d-flex align-items-center justify-content-between mb-3">
-                <h5 class="mb-0">Enrolled Courses</h5></div>
-
-            <div class="p-4 rounded shadow-sm bg-light">
-                {% if profile.Enrolled_Courses is not null %}
-                                {% for c in profile.Enrolled_Courses.all %}
-                                    <br>{{ c.subject_field }} {{ c.catalog_number_field }}
-                                {% endfor %}
-                            {% endif %}
-                            <br></br>
-
-
-
-                </div> </div>
-            <div class="py-4 px-4"> <div class="d-flex align-items-center justify-content-between mb-3">
-                <h5 class="mb-0">Who I Follow</h5> </div>
-                <div class=""> <div class="p-4 rounded shadow-sm bg-light">
-                    {% if profile.Following is not null %}
-                                {% for c in profile.Following.all %}
-
-                                    <div class="col-md-6 col-xl-4">
-                                        <div class="card-body">
-                                            <div class="media-body overflow-hidden">
-                                                <img src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" alt="" width="50"
-                                     height="50">
-                                              <h5 class="card-text mb-0">{{ c }}</h5>
-                                                <a href="{% url 'user_profile' pk=c.id %}" class="tile-link">View Profile</a>
-                                            </div>
-                                          </div>
+            <div class="col-sm-2 sidenav">
+                <div class="px-4">
+                    
+                    <div class="">
+                        <div class="px-1 py-4 rounded shadow-sm bg-light" style="margin-left:150px; width : 150px; height:max-content">
+                            <div class="">
+                                <h5 class="mb-0">Who I Follow</h5>
+                            </div>
+                            {% if profile.Following is not null %}
+                            {% for c in profile.Following.all %}
+                        <!--</div>-->
+                            <div class="">
+                                <div class="card-body">
+                                    <div class="media-body overflow-hidden">
+                                        <a href="{% url 'user_profile' pk=c.id %}" class="tile-link">
+                                            <img src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg" alt="" width="50"
+                                                 height="50">
+                                        </a>
+                                        <h5 class="card-text mb-0">{{ c }}</h5>
+                                        
                                     </div>
+                                </div>
+                            </div>
 
-                                {% endfor %}
+                            {% endfor %}
                             {% endif %}
 
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             </div>
-        </div>
-    </div>
-    </center>
+</center>
 </div>
         <body style="color: black;">
     <link rel="stylesheet" href="{% static 'index/style.css' %}">
@@ -222,6 +243,7 @@ body {
                         <div class="col-md-5 text-center">
                             <img class="img-thumbnail md-margin-bottom-10" src="https://www.americanaircraftsales.com/wp-content/uploads/2016/09/no-profile-img.jpg" alt="">
                         </div>
+
                         <div class="col-md-7">
                             <h2>{{profile.user.username}}</h2>
                             <span>{{profile.Age}}</span>

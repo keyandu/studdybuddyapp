@@ -211,10 +211,8 @@
                         <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'user_profile' user.profile.id %}">User Profile</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="/user_list">Find a Buddy</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="/class">Course List</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Study Groups </a>
-                            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="{% url 'post'%}">Make A Study Group</a><a class="dropdown-item" role="presentation" href="{% url 'list'%}">List of Study Sessions</a><a class="dropdown-item" role="presentation" href="{% url 'my_post_session'%}">Study Sessions I Created</a></div>
-                        </li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'list'%}">Study Sessions</a></li>
+
                     </ul>
                     {% else %}
 

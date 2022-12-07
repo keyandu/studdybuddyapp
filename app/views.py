@@ -118,7 +118,7 @@ def AddSessionView(request):
             session.class_name = request.POST.get("class_name")
             session.author = request.user
             session.save()
-            return HttpResponseRedirect(reverse('list'))
+            return HttpResponseRedirect(reverse('my_post_session'))
     else:
         form = StudySessionForm()
 
@@ -137,12 +137,38 @@ def AddSessionView(request):
         return form
 
     return render(request, 'study_session_post.html', {'form': get_form(form)})
-class UpadateSessionView(UpdateView):
-    model = StudySessionModel
-    form_class = StudySessionEditForm
-    template_name = 'editStudySession.html'
 
-    #fields = ['title','text','start_time','address','class_name']
+#class UpadateSessionView(UpdateView):
+#    model = StudySessionModel
+#    form_class = StudySessionEditForm
+#    template_name = 'editStudySession.html'
+
+def update_session(request, pk):
+    obj = get_object_or_404(StudySessionModel, pk=pk)
+    form = StudySessionForm(request.POST or None, instance=obj)
+    if request.method == 'POST':
+        if 'class_name' in form.errors:
+            del form.errors['class_name']
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('my_post_session'))
+
+    def get_form(form, *args, **kwargs):
+            profile = request.user.profile
+            set = list(profile.Enrolled_Courses.all())
+            result = []
+
+            for i in set:
+
+                b = i.subject_field + i.catalog_number_field
+                a = (str(b), str(b))
+                result.append(a)
+            form.fields['class_name'].choices = result
+
+            return form
+
+    return render(request, 'editStudySession.html', {'form': get_form(form)})
+
 
 class DeleteSessionView(DeleteView):
     model = StudySessionModel
@@ -162,6 +188,10 @@ def get_user_search(request):
             | Q(Age__contains=query_name) |  Q(Major__contains=query_name) | Q(Enrolled_Courses__catalog_number_field__contains=query_name)).distinct()
         return render(request, 'userSearch.html', {"u_filter": user_filter})
 
+def UnenrollView(request,pk):
+    study_session = get_object_or_404(StudySessionModel, id=pk)
+    study_session.enroll.remove(request.user)
+    return HttpResponseRedirect(reverse('home'))
 
 def post_list(request):
     profile = request.user.profile
@@ -176,6 +206,18 @@ def post_list(request):
         formset.append(StudySessionModel.objects.filter(class_name=i))
     return render(request, 'list.html', {'formset': formset})
 
+def friendspost(request):
+    profile = request.user.profile
+    set = profile.Following.all()
+
+    formset = []
+    for i in set:
+        try:
+            user = User.objects.get(username=i)
+        except User.DoesNotExist:
+            user = None
+        formset.append(StudySessionModel.objects.filter(author=user))
+    return render(request, 'list.html', {'formset': formset})
 
 class StudySessionDetailView(DetailView):
     model = StudySessionModel
