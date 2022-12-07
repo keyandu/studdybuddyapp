@@ -111,38 +111,40 @@ body {
 }
 </style>
 {% block content %}
+
 <br>
+    <div class="header-dark">
 <div class="text-center">
     <!--<h1>My Google OAuth Project </h1>-->
-    {% if user.is_authenticated %}
+
     <div class="profile mr-3">
-        <a href="{% url 'user_profile' user.profile.pk %}" class="btn bg-white btn-sm btn-block">Return to Profile</a>
+        <a href="{% url 'user_profile' user.profile.pk %}" class="btn bg-dark btn-sm ">Return to Profile</a>
 
     </div>
         <br></br>
     <!--https://www.bootdey.com/snippets/view/Profile-bio#html-->
-    <div class="row py-5 px-50">
+    <div class="row py-5 px-150">
     <div class="col-md-5 mx-auto">
         <!-- Profile widget -->
         <div class="bg-white shadow rounded overflow-hidden">
                 <div class="profile-bio">
                     <div class="row">
 
-                        <div class="col-md-7">
-                            <h2>{{user.username}}</h2>
+                        <div class="px-4 pt-0 pb-4 cover">
 
 
+<br></br>
                             <form action="{% url 'edit_profile_page' user.profile.id %}" method="post">
                                 {% csrf_token %}
                                 <div>
-                                    <label class="form-label" for="Age"><b>Age:</b></label>
+                                    <label class="form-label" for="Age"><b>Grade</b></label>
                                     <br>
                                     {{ form.Age }}
                                 </div>
                                 <br>
                                 <span>
                                     <div>
-                                        <label class="form-label" for="Enrolled_Courses"><b>Courses:</b></label>
+                                        <label class="form-label" for="Enrolled_Courses"><b>Courses</b></label>
                                         <br>
                                         {{ form.Enrolled_Courses }}
                                         <br>
@@ -153,7 +155,7 @@ body {
                                 <br>
                                 <span>
                                     <div>
-                                        <label class="form-label" for="Major"><b>Major:</b></label>
+                                        <label class="form-label" for="Major"><b>Major</b></label>
                                         <br>
                                         {{ form.Major }}
                                     </div>
@@ -161,9 +163,19 @@ body {
                                 <br>
                                 <span>
                                     <div>
-                                        <label class="form-label" for="Bio"><b>Bio:</b></label>
+                                        <label class="form-label" for="Bio"><b>Bio</b></label>
                                         <br>{{ form.Bio }}
                                     </div>
+                                </span>
+                                <br>
+                                <span>
+                                    <div>
+                                        <label class="form-label" for="Following"><b>Following</b></label>
+                                        <br>
+                                        {{ form.Following }}
+                                        <br>
+                                    </div>
+
                                 </span>
                                 <br>
                                 <button type="submit" class="btn btn-primary" href="{% url 'user_profile' user.profile.id %}">Save changes</button>
@@ -175,9 +187,9 @@ body {
             </div>
         </div>
     </div>
+</div>
 
-
-
+{% if user.is_authenticated %}
     {% else %}
     <button>
         <a href="{% provider_login_url 'google' %}">Login</a>

@@ -10,13 +10,21 @@ class EditProfileForm(ModelForm):
         self.request = kwargs.pop('request')
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.fields['Enrolled_Courses'].queryset = Class.objects.filter(profile=self.request.user.profile)
+        self.fields['Following'].queryset = self.request.user.profile.Following
 
     class Meta:
         model = Profile
-        fields = ['Age', 'Major', 'Enrolled_Courses', 'Bio']
+        fields = ['Age', 'Major', 'Enrolled_Courses', 'Bio', 'Following']
 
     # Set Enrolled_Courses to NOT be required - allow to save profile with no courses.
     Enrolled_Courses = forms.ModelMultipleChoiceField(
+        queryset=None,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+
+    # Set Following to NOT be required.
+    Following = forms.ModelMultipleChoiceField(
         queryset=None,
         widget=forms.CheckboxSelectMultiple,
         required=False,
@@ -61,6 +69,12 @@ class StudySessionForm(ModelForm):
             'start_time':forms.DateTimeInput(format=('%m/%d/%y %H:%M'), attrs = {'class':'form-control','placeholder':'10/25/06 14:30'}),
             'address':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: clark, rice, discord..'}),
             }
+
+        error_messages = {
+            'start_time': {
+                'invalid': "Please enter a valid start time below in the format of '10/25/06 14:30'.",
+            },
+        }
 
 
 class StudySessionEditForm(ModelForm):

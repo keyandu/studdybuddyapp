@@ -81,7 +81,10 @@
         </div>
         <div class="container">
             <div class="row" style="margin-top: 20px; margin-left: 320px; ">
-                {% endif %}
+                <form action="{% url 'enroll' studysessionmodel.pk%}" method="POST" style="margin-left: 20px; ">
+                    {% csrf_token%}
+                    <button type="submit" , name="studysession_id" ,value="{{studysessionmodel.id}}" ,class="btn btn-primary btn-sm"> Enroll </button>
+                </form>
                 {% if user.id == studysessionmodel.author.id%}
                 <form action="{% url 'edit_session' studysessionmodel.pk%}" method="POST" style="margin-left: 20px; ">
                     {% csrf_token%}

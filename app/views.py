@@ -53,7 +53,7 @@ def profile(request, pk=None):
 def index(request):
     return HttpResponse("Hello, world. You're at the app page.")
 
-
+# Only loads CS department classes by default to the course list page.
 def get_class(request):
     url = "http://luthers-list.herokuapp.com/api/dept/CS/"
     response = requests.get(url).json()
@@ -62,9 +62,17 @@ def get_class(request):
 def get_search(request):
     if request.method == "POST":
         query_name = request.POST.get('name')
-        response = requests.get("http://luthers-list.herokuapp.com/api/dept/CS/").json()
-        result = list(filter(lambda x: (x['description'].upper().__contains__(query_name.upper()) or (x['subject']+" "+x['catalog_number']).upper().__contains__(query_name.upper()) or x['instructor']['name'].upper().__contains__(query_name.upper())), response))
-        return render(request, 'search.html', {"result":result})
+        # Checks courses from all departments for search results:
+        dept_list = requests.get("http://luthers-list.herokuapp.com/api/deptlist/").json()
+        response = []
+        all_results = []
+        for d in dept_list:
+            dept = d['subject']
+            url = "http://luthers-list.herokuapp.com/api/dept/" + dept + "/"
+            response = requests.get(url).json()
+            result = list(filter(lambda x: (x['description'].upper().__contains__(query_name.upper()) or (x['subject']+" "+x['catalog_number']).upper().__contains__(query_name.upper()) or x['instructor']['name'].upper().__contains__(query_name.upper())), response))
+            all_results += result
+        return render(request, 'search.html', {"result":all_results})
     return render(request, 'search.html',{"result":{"n"}})
 
 # Add class to user profile's Enrolled Courses field.
