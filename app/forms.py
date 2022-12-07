@@ -70,6 +70,12 @@ class StudySessionForm(ModelForm):
             'address':forms.TextInput(attrs={'class':'form-control','placeholder':'eg: clark, rice, discord..'}),
             }
 
+        error_messages = {
+            'start_time': {
+                'invalid': "Please enter a valid start time below in the format of '10/25/06 14:30'.",
+            },
+        }
+
 
 class StudySessionEditForm(ModelForm):
     class Meta:
