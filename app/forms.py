@@ -10,13 +10,21 @@ class EditProfileForm(ModelForm):
         self.request = kwargs.pop('request')
         super(EditProfileForm, self).__init__(*args, **kwargs)
         self.fields['Enrolled_Courses'].queryset = Class.objects.filter(profile=self.request.user.profile)
+        self.fields['Following'].queryset = self.request.user.profile.Following
 
     class Meta:
         model = Profile
-        fields = ['Age', 'Major', 'Enrolled_Courses', 'Bio']
+        fields = ['Age', 'Major', 'Enrolled_Courses', 'Bio', 'Following']
 
     # Set Enrolled_Courses to NOT be required - allow to save profile with no courses.
     Enrolled_Courses = forms.ModelMultipleChoiceField(
+        queryset=None,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
+
+    # Set Following to NOT be required.
+    Following = forms.ModelMultipleChoiceField(
         queryset=None,
         widget=forms.CheckboxSelectMultiple,
         required=False,

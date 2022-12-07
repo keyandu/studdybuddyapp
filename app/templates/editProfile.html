@@ -168,6 +168,16 @@ body {
                                     </div>
                                 </span>
                                 <br>
+                                <span>
+                                    <div>
+                                        <label class="form-label" for="Following"><b>Following</b></label>
+                                        <br>
+                                        {{ form.Following }}
+                                        <br>
+                                    </div>
+
+                                </span>
+                                <br>
                                 <button type="submit" class="btn btn-primary" href="{% url 'user_profile' user.profile.id %}">Save changes</button>
                                 <br>
                             </form>
