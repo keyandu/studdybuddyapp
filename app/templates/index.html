@@ -27,7 +27,7 @@
                 <ul>
                     {% for session in enroll %}
                     <br />
-                    <a href="{% url 'post_detail' session.pk %}">{{ session.title }}</a> - {{session.author}}
+                    <a href="{% url 'post_detail' session.pk %}">{{ session.title }}</a> - {{session.class_name}}
                     <br />
                     {{session.start_time}} - {{session.duration}}
 
